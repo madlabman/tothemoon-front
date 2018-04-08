@@ -29,3 +29,13 @@
   @else
     -webkit-font-smoothing: subpixel-antialiased
     -moz-osx-font-smoothing: auto
+
+=placeholder
+  &::-webkit-input-placeholder
+    @content
+  &:-moz-placeholder
+    @content
+  &::-moz-placeholder
+    @content
+  &:-ms-input-placeholder
+    @content

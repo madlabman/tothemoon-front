@@ -36,7 +36,7 @@ block content
                         sup.day-change__star *
                         | Информация предоставлена за 6 месяцев статистики от 2017 года
     // 03
-    article#slide3.page-block
+    article#slide3.page-block.page-block_bordered
         .container.container_with-sidebar
             .page-block__content
                 h2.page-block__name + 03. ИНформация
@@ -69,3 +69,87 @@ block content
                             p.cryptomen__name Jay-Z 
                             p.cryptomen__role Рэппер, бизнесмен
                             p.cryptomen__text Инвестировал в криптопроект.
+                // Чарт
+                .bar-chart
+                    p.bar-chart__title Капитализация рынка криптовалют постоянно растет<br>и не собирается останавливаться
+                    | @TODO: chart
+    // 04
+    article#slide4.page-block.page-block_bordered
+        .container.container_with-sidebar
+            .page-block__content
+                h2.page-block__name + 04. зарабатывай новыми способами
+                h3.page-block__title 
+                    | Каждый день на рынке появляются новые валюты и ICO
+                    span.page-block__title__small 
+                        | а уже существующие постоянно изменяются в цене
+                // Инфографика
+                .info
+                    .info__column.info__column_2
+                        .info__tile.info__tile_h
+                            .info__tile__logo
+                                img.info__tile__img(src='img/info-btc.png')
+                            p.info__tile__text Более <b>1500</b> криптовалют на рынке
+                    .info__column.info__column_2
+                        .info__tile.info__tile_h
+                            .info__tile__logo
+                                img.info__tile__img(src='img/info-vol.png')
+                            p.info__tile__text <b>&gt;100%</b><br>высокая волатильность
+                .what-to-do
+                    h4.what-to-do__title Что с этим делать?
+                    p.what-to-do__text В условиях стремительно развивающегося рынка криптовалют важно не упустить свой шанс и использовать новые инструменты для инвестирования. Традиционные активы уже уходят на второй план, уступая место современным технологиям, давая возможность зарабатывать и получать сверхприбыль. Но в погоне за доходом необходимо обладать обширными знаниями рынка, выстраивать стратегии и тратить на это много времени. Для тех, кто хочет зарабатывать с минимальными затратами мы предлагаем современное решение. <br><br> Если вы решили вложить в криптовалюту и увеличивать доход – инвестируйте в криптофонд ToTheMoon. Наши классифицированные специалисты много лет работали на инвестиционных биржах, и теперь с успехом применяют свои знания на рынке криптовалют. Наша команда имеет солидный опыт в разработке выигрышных стратегий. Наша задача – не просто увеличить инвестиции своих клиентов, но и сохранить их от взломов и краж.
+                    // spacer
+                    .what-to-do__spacer
+                    // Инфографика
+                    .info
+                        .info__column.info__column_3
+                            .info__tile.info__tile_h
+                                .info__tile__logo
+                                    img.info__tile__img(src='img/info-select.png')
+                                p.info__tile__text Отбор проектов собственно написанной программой с искусственным интеллектом
+                        .info__column.info__column_3
+                            .info__tile.info__tile_h
+                                .info__tile__logo
+                                    img.info__tile__img(src='img/info-risk.png')
+                                p.info__tile__text Улучшенный риск менеджмент
+                        .info__column.info__column_3
+                            .info__tile.info__tile_h
+                                .info__tile__logo
+                                    img.info__tile__img(src='img/info-safe.png')
+                                p.info__tile__text Особая система хранения активов
+                    // spacer
+                    .what-to-do__spacer
+                    p.what-to-do__text При разработке стратегии мы не делаем ставку на отдельные проекты, а оцениваем криптоэкономику целиком, используя весь потенциал рынка. <br><br> Надежность – приоритет №1. Поэтому даже при падении курса у нашего фонда есть стабилизационные активы, позволяющие исключить риски потерь. <br><br> Минимальная сумма вложений – всего 100$. Это позволяет вам проверить работу нашего фонда не на словах, а на деле. Попробуйте инвестировать 100$ хотя бы на 1 месяц, и по итогу этого времени вы сможете получить ваши деньги обратно, или увеличить сумму вложений, тем самым повысить шанс заработать еще больше.
+                    button.button.button_grad-border.what-to-do__button Инвестировать
+    //05
+    article#slide5.page-block.page-block_bordered
+        .container.container_with-sidebar
+            .page-block__content
+                h2.page-block__name + 05. как начать
+                h3.page-block__title 
+                    | Инвестируйте и зарабатывайте<br>без лишних усилий
+                // Инфографика
+                .info.info_centered
+                    .info__column.info__column_center
+                        .info__tile.info__tile_v
+                            .info__tile__logo
+                                img.info__tile__img(src='img/info-sum.png')
+                            p.info__tile__text Минимальная сумма инвестиций - всего 100$
+                    .info__column.info__column_center
+                        .info__tile.info__tile_v
+                            .info__tile__logo
+                                img.info__tile__img(src='img/info-time.png')
+                            p.info__tile__text Вы не тратите время на изучение рынка и отслеживание курса.<br>Мы делаем это за вас
+                    .info__column.info__column_center
+                        .info__tile.info__tile_v
+                            .info__tile__logo
+                                img.info__tile__img(src='img/info-money.png')
+                            p.info__tile__text Вы не нервничаете и получаете стабильный доход каждый месяц
+                // Контактная форма
+                .contact-form
+                    p.contact-form__text Подробнее о процессе сотрудничества с нашим фондом вам расскажет наш специалист. Для этого оставьте свои контакты в форме, и он перезвонит вам в удобное время
+                    .contact-form__input-container
+                        input.contact-form__input(type='text' placeholder='Имя*')
+                        input.contact-form__input(type='text' placeholder='Почта*')
+                        input.contact-form__input(type='text' placeholder='Телефон*')
+                        input.contact-form__input(type='text' placeholder='Удобное время для звонка*')
+                    button.button.button_grad-border Отправить

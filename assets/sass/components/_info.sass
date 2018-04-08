@@ -1,0 +1,97 @@
+.info
+  $info: &
+  display: flex
+
+  &_centered
+    justify-content: space-between
+  
+  &__column
+    padding-right: 5%
+
+    &_2
+      max-width: 25%
+      flex-basis: 25%
+
+    &_3
+      &:first-child
+        max-width: 60%
+        flex-basis: 60%
+      &:nth-child(2)
+        max-width: 44%
+        flex-basis: 44%
+
+    &_center
+      &:nth-child(2n+1)
+        max-width: 30%
+        flex-basis: 30%
+      &:nth-child(2n)
+        max-width: 40%
+        flex-basis: 40%
+
+  
+  &__tile
+    display: flex
+    cursor: pointer
+
+    &__text
+      @include font-size(16)
+      color: #fff
+      line-height: 1.2
+
+      & > b
+        font-weight: 900
+
+    // horizontal layout
+    &_h
+      flex-direction: row
+      align-items: center
+
+      #{$info}__tile
+        
+        &__logo
+          margin-right: 11px
+
+    // vertical layout
+    &_v
+      flex-direction: column
+      justify-content: center
+
+      #{$info}__tile
+
+        &__logo
+          padding-bottom: 4px
+          text-align: center
+
+        &__text
+          text-align: center
+          padding: 0 10%
+
+    // hover
+    &:hover
+      #{$info}__tile
+
+        &__logo
+          position: relative
+          &:before
+            position: absolute
+            content: ''
+            display: block
+            width: 100px
+            height: 100px
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+            border-radius: 50%
+            background: radial-gradient(circle at center, #00fff2 0, transparent 70%)
+            opacity: 0.5
+
+        &__text
+          color: #00fff2
+
+    &_v:hover
+      #{$info}__tile__logo
+        &:before
+          width: 130px
+          height: 130px
+
+        

@@ -13,14 +13,14 @@ buttons.forEach(function (elem) {
 		"  </svg>";
 });
 
-// const spy = new ScrollSpy('.page-content', {
+// const spy = new ScrollSpy('body', {
 //     nav: '.side-nav__scrollspy__item > a',
 //     className: 'hidden'
 // });
 
 (function($){
     $(window).on("load", () => {
-        $(".page-content").mCustomScrollbar({
+        $("body").mCustomScrollbar({
         	theme: 'minimal'
         });
     });
