@@ -1,0 +1,71 @@
+extends template
+
+block title
+    | ToTheMoon
+
+block content
+    // 01
+    article#slide1.page-block.promo
+        .container.container_with-sidebar.promo__container
+            .page-block__content
+                p.promo__text
+                    | Инвестируйте в криптовалюты <br>И зарабатывайте 
+                    span.promo__span 70.000 руб.<br> 
+                    | в месяц
+                p.promo__text
+                    | За 2017 год мы увеличили<br>инвестиции наших клиентов<br>на 
+                    span.promo__span 3.866%
+    // 02
+    article#slide2.page-block.page-block_bordered
+        .container.container_with-sidebar
+            .page-block__content
+                h2.page-block__name + 02. ИНВЕСТИЦИИ
+                h3.page-block__title 
+                    | ИНВЕСТИРУЙТЕ
+                    span.page-block__title__small 
+                        | а не ждите подходящего момента
+                p.page-block__text
+                    | Криптовалютный рынок – самая перспективная и стремительно растущая по доходности площадка в мире. Инвестируя в криптовалюты, вы получаете больше дохода, чем от вложения в традиционные активы.
+                .day-change
+                    p.day-change__title Изменение за сутки
+                    p.day-change__value +12.06%
+                    .day-change__chart 
+                        | //@TODO: график
+                        img(src='img/market-price.svg' style='width: 100%;')
+                    p.day-change__span 
+                        sup.day-change__star *
+                        | Информация предоставлена за 6 месяцев статистики от 2017 года
+    // 03
+    article#slide3.page-block
+        .container.container_with-sidebar
+            .page-block__content
+                h2.page-block__name + 03. ИНформация
+                h3.page-block__title 
+                    | В криптовалюте уверены<br>крупные бизнесмены 
+                    span.page-block__title__small 
+                        | и вкладывают в нее большие состояния
+                .cryptomen
+                    // Греф
+                    .cryptomen__column
+                        .cryptomen__photo
+                            img.cryptomen__img(src='img/gref.png')
+                        .cryptomen__about
+                            p.cryptomen__name Герман Греф
+                            p.cryptomen__role Глава Сбербанк
+                            p.cryptomen__text «Блокчейн — это, в том числе для малого бизнеса, гигантские новые возможности».
+                    // Абромович
+                    .cryptomen__column
+                        .cryptomen__photo
+                            img.cryptomen__img(src='img/abromovich.png')
+                        .cryptomen__about
+                            p.cryptomen__name Роман Абромович 
+                            p.cryptomen__role Миллиардер
+                            p.cryptomen__text Вложил 300 млн $ в ICO .
+                    // Jay-Z
+                    .cryptomen__column
+                        .cryptomen__photo
+                            img.cryptomen__img(src='img/jayz.png')
+                        .cryptomen__about
+                            p.cryptomen__name Jay-Z 
+                            p.cryptomen__role Рэппер, бизнесмен
+                            p.cryptomen__text Инвестировал в криптопроект.

@@ -1,0 +1,47 @@
+.side-nav
+  position: fixed
+  top: 0
+  bottom: 0
+  margin-left: -($aside-width) * 1px
+  width: $aside-width * 1px
+  border: 1px solid #383838
+  border-top: none
+  border-bottom: none
+  z-index: 100
+
+  &__scrollspy
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    background-color: #000
+    &__item
+      position: relative
+      padding: 22px 0
+      width: ($aside-width - 2) * 1px
+      font-weight: 300
+      @include font-size(11)
+      text-align: center
+      &:hover
+        color: #00fff2
+        font-weight: 900
+        &:after
+          content: ''
+          position: absolute
+          top: 50%
+          transform: translateY(-50%)
+          right: -3px
+          display: block
+          width: 3px
+          height: 31px
+          background-color: #00fff2
+        .side-nav__scrollspy__item__hidden
+          position: absolute
+          top: 50%
+          transform: translateY(-50%)
+          left: ($aside-width + 14) * 1px
+          display: block
+          font-weight: 500
+          color: #fff
+      &__hidden
+        display: none
