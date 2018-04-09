@@ -37,9 +37,26 @@
       @include font-size(16)
       color: #fff
       line-height: 1.2
+      transition: color 0.3s ease-in-out
 
       & > b
         font-weight: 900
+
+    &__logo
+      position: relative
+      &:before
+        position: absolute
+        content: ''
+        display: block
+        width: 100px
+        height: 100px
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+        border-radius: 50%
+        background: radial-gradient(circle at center, #00fff2 0, transparent 70%)
+        opacity: 0
+        transition: opacity 0.3s ease-in-out
 
     // horizontal layout
     &_h
@@ -71,18 +88,7 @@
       #{$info}__tile
 
         &__logo
-          position: relative
           &:before
-            position: absolute
-            content: ''
-            display: block
-            width: 100px
-            height: 100px
-            top: 50%
-            left: 50%
-            transform: translate(-50%, -50%)
-            border-radius: 50%
-            background: radial-gradient(circle at center, #00fff2 0, transparent 70%)
             opacity: 0.5
 
         &__text
