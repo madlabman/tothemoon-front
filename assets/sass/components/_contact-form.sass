@@ -1,6 +1,24 @@
 .contact-form
+  position: relative
   padding: 38px 52px
-  border: 4px solid #00e7dd
+  border: 4px solid
+  border-top-style: none
+  border-bottom-style: none
+  border-left-color: #00fff2
+  border-right-color: #0b988a
+  &:after,
+  &:before
+    content: ''
+    position: absolute
+    display: block
+    height: 4px
+    background: linear-gradient(to right, #00fff2, #0b988a)
+    left: 0
+    right: 0
+  &:before
+    top: 0
+  &:after
+    bottom: 0
 
   &__text
     padding-bottom: 20px
