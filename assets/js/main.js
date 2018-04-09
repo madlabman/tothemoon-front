@@ -26,22 +26,22 @@ buttons.forEach(function (elem) {
 //     });
 // })(jQuery);
 
- $(document).ready(function() {
- 	$('.side-nav__scrollspy__item > a').each(function() {
- 		let target = $($(this).attr('href'));
- 		if ( target.length ) {
- 			let self = $(this);
- 			self.scrollspy({
-				min: target.offset().top - 65,
-				max: target.offset().top + target.height() - 75,
-				onEnter: function(element, position) {
-					if(console) console.log('entering ' +  element.id);
-					self.parent().addClass('side-nav__scrollspy__item_active');
-				},
-				onLeave: function(element, position) {
-					self.parent().removeClass('side-nav__scrollspy__item_active');
-				}
-			});
- 		}
- 	});
+$(document).ready(function() {
+    $('.side-nav__scrollspy__item > a').each(function() {
+        let target = $($(this).attr('href'));
+        if ( target.length ) {
+            let self = $(this);
+            self.scrollspy({
+                min: target.offset().top - 65,
+                max: target.offset().top + target.height() - 75,
+                onEnter: function(element, position) {
+                    if(console) console.log('entering ' +  element.id);
+                    self.parent().addClass('side-nav__scrollspy__item_active');
+                },
+                onLeave: function(element, position) {
+                    self.parent().removeClass('side-nav__scrollspy__item_active');
+                }
+            });
+        }
+    });
 });
