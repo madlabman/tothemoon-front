@@ -1,14 +1,15 @@
 .header
-  display: flex
-  justify-content: flex-start
-  align-items: center
-
   &_fixed
     position: absolute
     top: 0
     left: 0
     right: 0
     z-index: 999
+
+  &__container
+    display: flex
+    justify-content: flex-start
+    align-items: center
 
   &__block_left,
   &__block_right
@@ -51,37 +52,10 @@
       &:nth-child(3)
         top: 22px
 
-  &__logo
-    display: flex
-    align-items: center
-    &__img
-      padding-right: 10px
-    &__title
-      font-weight: 500
-      @include font-size(22.47)
-      color: #fff
-      @include line-height(26)
-      &__fund
-        @include font-size(32.76)
-        display: block
-
   &__contact
     display: flex
     align-items: center
     margin-bottom: 35px
-    &__mail
-      font-family: 'museo', sans-serif
-      @include font-size(12)
-      &:before
-        content: ''
-        display: inline-block
-        margin-right: 7px
-        width: 10px
-        height: 7px
-        background: url('../img/envelope.png')
-    &__phone
-      padding-left: 50px
-      @include font-size(30)
 
   &__sign
     display: flex

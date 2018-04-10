@@ -16,23 +16,23 @@ head
     link(rel='stylesheet' href='css/style.css')
 
     body
-        .container
-            header.header.header_fixed
+        header.header.header_fixed
+            .container.header__container
                 .header__sandwich-container
                     .header__sandwich
                         span.header__sandwich__line
                         span.header__sandwich__line
                         span.header__sandwich__line
                 .header__block_left
-                    a.header__logo(href='#')
-                        img.header__logo__img(src='img/logo.png')
-                        p.header__logo__title
+                    a.logo(href='#')
+                        img.logo__img(src='img/logo.png')
+                        p.logo__title
                             | TOTHEMOON
-                            span.header__logo__title__fund FUND
+                            span.logo__title__fund FUND
                 .header__block_right
                     .header__contact
-                        a.header__contact__mail(href='mailto:tothemoon@mail.ru') tothemoon@mail.ru
-                        a.header__contact__phone(href='tel:88002000600') 8 800 2000 600
+                        a.contact-mail(href='mailto:tothemoon@mail.ru') tothemoon@mail.ru
+                        a.contact-phone(href='tel:88002000600') 8 800 2000 600
                     .header__sign
                         button.button.button_grad-border Вход
                         button.button.button_grad-border Регистрация
