@@ -1,30 +1,27 @@
 "use strict";
 
-let buttons = Array.from(document.getElementsByClassName('button_grad-border'));
-buttons.forEach(function (elem) {
-    elem.innerHTML += "<svg xmlns='http://www.w3.org/2000/svg' viewBox='1 1 152 40' preserveAspectRatio='none'>\n" +
-        "    <defs>\n" +
-        "      <linearGradient id='border-gradient' gradientUnits='objectBoundingBox' gradientTransform='rotate(68)'>\n" +
-        "        <stop offset='0%' stop-color='rgb(0,255,242)' />\n" +
-        "        <stop offset='100%' stop-color='rgb(15,163,149)' />\n" +
-        "      </linearGradient>\n" +
-        "    </defs>\n" +
-        "    <path d='M5.000,2.000 L149.000,2.000 C150.657,2.000 152.000,3.343 152.000,5.000 L152.000,37.000 C152.000,38.657 150.657,40.000 149.000,40.000 L5.000,40.000 C3.343,40.000 2.000,38.657 2.000,37.000 L2.000,5.000 C2.000,3.343 3.343,2.000 5.000,2.000 Z' />\n" +
-        "  </svg>";
-});
+let grad_svg = d3.select('body').append('svg')
+    .attr('width', '0')
+    .attr('height', '0')
+    .attr('style', 'position: absolute');
+let grad_defs = grad_svg.append('defs');
+let gradient = grad_defs.append('linearGradient')
+    .attr('id', 'border-gradient')
+    .attr('gradientUnits', 'objectBoundingBox')
+    .attr('gradientTransform', 'rotate(68)');
+gradient.append('stop')
+    .attr('offset', '0%')
+    .attr('stop-color', 'rgb(0,255,242)');
+gradient.append('stop')
+    .attr('offset', '100%')
+    .attr('stop-color', 'rgb(15,163,149)');
 
-// const spy = new ScrollSpy('body', {
-//     nav: '.side-nav__scrollspy__item > a',
-//     className: 'hidden'
-// });
+let buttons_svg = d3.selectAll('.button_grad-border').append('svg')
+    .attr('viewBox', '1 1 152 40')
+    .attr('preserveAspectRatio', 'none');
+buttons_svg.append('path')
+    .attr('d', 'M5.000,2.000 L149.000,2.000 C150.657,2.000 152.000,3.343 152.000,5.000 L152.000,37.000 C152.000,38.657 150.657,40.000 149.000,40.000 L5.000,40.000 C3.343,40.000 2.000,38.657 2.000,37.000 L2.000,5.000 C2.000,3.343 3.343,2.000 5.000,2.000 Z');
 
-// (function($){
-//     $(window).on("load", () => {
-//         $("body").mCustomScrollbar({
-//         	theme: 'minimal'
-//         });
-//     });
-// })(jQuery);
 
 $(document).ready(function() {
     // $('.side-nav__scrollspy__item > a').each(function() {
