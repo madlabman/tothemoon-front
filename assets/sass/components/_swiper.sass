@@ -1,0 +1,91 @@
+.swiper
+
+  &-container
+    height: 480px
+
+  &-slide
+    text-align: center
+    overflow: hidden
+
+  &-pagination
+
+    &-bullet
+      width: 27px
+      height: 6px
+      border-radius: 3px
+      background-color: #fff
+      opacity: 1
+      transition: background-color 0.3s ease-in-out
+
+      &-active
+        background-color: #00fff2
+
+  // navigation
+
+  &-button
+
+    &-prev,
+    &-next
+      position: absolute
+      top: 40px
+      width: 57px
+      height: 14px
+      background-image: none
+    
+    &-prev
+      left: 35%
+      &-arrow
+        position: relative
+        @include triangle(right, 7, #00fff2)
+        &:before
+          content: ''
+          position: absolute
+          display: block
+          top: 0
+          left: 7px
+          width: 38px
+          border-bottom: 1px solid #00fff2
+
+    &-next
+      right: 30%
+      &-arrow
+        position: relative
+        @include triangle(left, 7, #00fff2)
+        &:before
+          content: ''
+          position: absolute
+          display: block
+          top: 0
+          right: 7px
+          width: 38px
+          border-bottom: 1px solid #00fff2
+
+  &-slide
+    $slide: &
+    //width: 60% !important
+    transition: all 0.2s ease-in-out
+
+    &__photo
+      padding-bottom: 13px
+
+    &__name
+      @include font-size(22)
+      font-weight: 500
+      @include line-height(24)
+
+    &__role
+      @include font-size(11)
+      font-weight: 500
+      color: #00fff2
+      @include line-height(16)
+
+    &__reply
+      padding-top: 52px
+      @include line-height(16)
+
+    &-prev,
+    &-next
+      //width: 20% !important
+      @include grayscale_element(100%)
+      #{$slide}__reply
+        display: none

@@ -43,3 +43,15 @@
 =vertical-center
   top: 50%
   transform: translateY(-50%)
+
+@mixin triangle($dir: right, $size: 9, $color: #000)
+  width: 0
+  height: 0
+  border-top: $size * 1px solid transparent
+  border-bottom: $size * 1px solid transparent
+  border-#{$dir}: ($size + 2) * 1px solid $color
+
+@mixin grayscale_element($value)
+  -webkit-filter: #{"grayscale(#{$value})"}
+  -moz-filter: #{"grayscale(#{$value})"}
+  filter: #{"grayscale(#{$value})"}

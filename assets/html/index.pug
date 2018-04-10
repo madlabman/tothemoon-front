@@ -163,6 +163,29 @@ block content
                         input.contact-form__input(type='text' placeholder='Телефон*')
                         input.contact-form__input(type='text' placeholder='Удобное время для звонка*')
                     button.button.button_grad-border Отправить
+    // 06
+    article#slide6.page-block.page-block_bordered
+        .container.container_with-sidebar
+            .page-block__content
+                h2.page-block__name + 06. отзывы
+                .swiper-container.swiper-reply
+                    .swiper-wrapper
+                        - for ($x = 0; $x < 10; $x++)
+                            .swiper-slide
+                                .swiper-scrollbar
+                                .swiper-slide__photo
+                                    img.swiper-slide__img(src='img/gref.png')
+                                p.swiper-slide__name Герман Греф
+                                p.swiper-slide__role Глава Сбербанк
+                                .swiper-slide__reply
+                                    p Глава Волоколамского района Евгений Гаврилов в среду днем прибыл к Центральной районной больнице в Волоколамске, где собрались сотни местных жителей после массового отравления школьников. Чиновник выступил перед участниками стихийного пикета под крики собравшихся: "В отставку!" <br><br> Позже Гаврилов попытался зайти в здание больницы, однако митингующие начали его толкать. По свидетельствам одних очевидцев, Гаврилова ударили в лицо и разбили очки. По другим данным, обошлось без травм, чиновника толкнули несколько раз, после этого он скрылся в здании.
+                    // Пагинация
+                    .swiper-pagination
+                    // Навигация
+                    .swiper-button-next
+                        .swiper-button-next-arrow
+                    .swiper-button-prev
+                        .swiper-button-prev-arrow
     // 07
     article#slide7.page-block.page-block_bordered
         .container.container_with-sidebar

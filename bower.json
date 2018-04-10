@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "jquery": "^3.3.1",
-    "jquery-scrollspy": "*"
+    "jquery-scrollspy": "*",
+    "swiper": "^4.2.2"
   }
 }
