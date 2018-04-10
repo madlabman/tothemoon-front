@@ -44,10 +44,9 @@ $(document).ready(function() {
         }
     });
 
-    let swiper = new Swiper('.swiper-reply', {
+    const replySlider = new Swiper('.swiper-reply', {
         slidesPerView: 3,
-        loop: true,
-        spaceBetween: 30,
+        // loop: true,
         centeredSlides: true,
         pagination: {
             el: '.swiper-pagination',
@@ -57,5 +56,6 @@ $(document).ready(function() {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        roundLengths: true,
     });
 });

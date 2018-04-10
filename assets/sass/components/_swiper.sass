@@ -62,8 +62,11 @@
 
   &-slide
     $slide: &
-    //width: 60% !important
     transition: all 0.2s ease-in-out
+    @include grayscale_element(100%)
+
+    &-active
+      @include grayscale_element(0%)
 
     &__photo
       padding-bottom: 13px
@@ -85,7 +88,5 @@
 
     &-prev,
     &-next
-      //width: 20% !important
-      @include grayscale_element(100%)
       #{$slide}__reply
         display: none
