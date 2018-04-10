@@ -14,3 +14,27 @@
   &-phone
     padding-left: 50px
     @include font-size(30)
+    white-space: nowrap
+    &_with-icon
+      padding-left: 0
+      &:before
+        content: ''
+        display: inline-block
+        width: 19px
+        height: 20px
+        margin-right: 8px
+        background-image: url('../img/phone.png')
+
+  &-address
+    position: relative
+    padding-left: 18px
+    @include line-height(24)
+    &:before
+      content: ''
+      position: absolute
+      display: block
+      left: 0
+      top: 5px
+      width: 10px
+      height: 15px
+      background: url('../img/ico-geo.png') no-repeat
