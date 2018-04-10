@@ -1,8 +1,11 @@
 .logo
+  position: relative
   display: flex
   align-items: center
+
   &__img
     padding-right: 10px
+
   &__title
     font-weight: 500
     @include font-size(22.47)
@@ -11,3 +14,10 @@
     &__fund
       @include font-size(32.76)
       display: block
+    &__copyright
+      position: absolute
+      left: 101px
+      bottom: 4px
+      @include font-size(10)
+      line-height: 1
+      text-transform: uppercase
