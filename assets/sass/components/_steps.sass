@@ -1,0 +1,50 @@
+.steps
+  position: relative
+  display: flex
+  justify-content: space-between
+  margin-right: 5%
+  padding-top: 21px
+  padding-bottom: 54px
+  // padding-left: 40px
+  // padding-right: 40px
+
+  &__item
+    $item: &
+
+    &:nth-child(1)
+      flex-basis: 25%
+      #{$item}__text
+        padding: 0 10%
+    &:nth-child(2)
+      flex-basis: 50%
+      #{$item}__text
+        padding: 0 25%
+
+    &:nth-child(3)
+      flex-basis: 25%
+
+    &__number
+      position: relative
+      width: 102px
+      height: 102px
+      margin: 0 auto 19px
+      // margin-bottom: 19px
+      @include font-size(72)
+      text-align: center
+      @include line-height(98)
+
+    &__circle
+      position: absolute
+      top: 0
+      left: 0
+
+    &__text
+      @include font-size(16)
+      line-height: 1.4
+      text-align: center
+
+  &__line
+    position: absolute
+    height: 1px
+    top: 72px
+    background-color: #00fff2
