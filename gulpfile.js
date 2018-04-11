@@ -33,7 +33,7 @@ gulp.task('sass', () => {
                 'opera 12'
             ]
         }))
-        .pipe($.cssmin())
+        .pipe($.if(!dev, $.cssmin()))
         .pipe($.if(dev, $.sourcemaps.write()))
         .pipe(gulp.dest('./dist/css'))
         .pipe(reload({stream:true}));
@@ -66,7 +66,10 @@ gulp.task('lint', () => {
 gulp.task('images', () => {
     return gulp.src('./assets/img/**/*')
         .pipe($.plumber())
-        .pipe($.cache($.imagemin()))
+        .pipe($.cache($.imagemin([
+            $.imagemin.jpegtran({progressive: true}),
+            $.imagemin.optipng({optimizationLevel: 5}),
+        ])))
         .pipe(gulp.dest('./dist/img'));
 });
 
