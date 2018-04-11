@@ -5,16 +5,17 @@ block title
 
 block content
     // 01
-    article#slide1.page-block.promo
-        .container.container_with-sidebar.promo__container
-            .page-block__content
-                p.promo__text
-                    | Инвестируйте в криптовалюты <br>И зарабатывайте 
-                    span.promo__span 70.000 руб.<br> 
-                    | в месяц
-                p.promo__text
-                    | За 2017 год мы увеличили<br>инвестиции наших клиентов<br>на 
-                    span.promo__span 3.866%
+    section.background.background_promo
+        article#slide1.page-block.promo
+            .container.container_with-sidebar.promo__container
+                .page-block__content
+                    p.promo__text
+                        | Инвестируйте в криптовалюты <br>И зарабатывайте&nbsp;
+                        span.promo__span 70.000 руб.<br>
+                        | в месяц
+                    p.promo__text
+                        | За 2017 год мы увеличили<br>инвестиции наших клиентов<br>на&nbsp;
+                        span.promo__span 3.866%
     // 02
     article#slide2.page-block.page-block_bordered
         .container.container_with-sidebar
@@ -74,140 +75,167 @@ block content
                     p.bar-chart__title Капитализация рынка криптовалют постоянно растет<br>и не собирается останавливаться
                     | @TODO: chart
     // 04
-    article#slide4.page-block.page-block_bordered
-        .container.container_with-sidebar
-            .page-block__content
-                h2.page-block__name + 04. зарабатывай новыми способами
-                h3.page-block__title 
-                    | Каждый день на рынке появляются новые валюты и ICO
-                    span.page-block__title__small 
-                        | а уже существующие постоянно изменяются в цене
-                // Инфографика
-                .info
-                    .info__column.info__column_2
-                        .info__tile.info__tile_h
-                            .info__tile__logo
-                                img.info__tile__img(src='img/info-btc.png')
-                            p.info__tile__text Более <b>1500</b> криптовалют на рынке
-                    .info__column.info__column_2
-                        .info__tile.info__tile_h
-                            .info__tile__logo
-                                img.info__tile__img(src='img/info-vol.png')
-                            p.info__tile__text <b>&gt;100%</b><br>высокая волатильность
-                .inner-text.inner-text_with-padding
-                    h4.inner-text__title Что с этим делать?
-                    p.inner-text__text В условиях стремительно развивающегося рынка криптовалют важно не упустить свой шанс и использовать новые инструменты для инвестирования. Традиционные активы уже уходят на второй план, уступая место современным технологиям, давая возможность зарабатывать и получать сверхприбыль. Но в погоне за доходом необходимо обладать обширными знаниями рынка, выстраивать стратегии и тратить на это много времени. Для тех, кто хочет зарабатывать с минимальными затратами мы предлагаем современное решение. <br><br> Если вы решили вложить в криптовалюту и увеличивать доход – инвестируйте в криптофонд ToTheMoon. Наши классифицированные специалисты много лет работали на инвестиционных биржах, и теперь с успехом применяют свои знания на рынке криптовалют. Наша команда имеет солидный опыт в разработке выигрышных стратегий. Наша задача – не просто увеличить инвестиции своих клиентов, но и сохранить их от взломов и краж.
-                    // spacer
-                    .inner-text__spacer
+    section.background.background_new-way
+        article#slide4.page-block.page-block_bordered
+            .container.container_with-sidebar
+                .page-block__content
+                    h2.page-block__name + 04. зарабатывай новыми способами
+                    h3.page-block__title
+                        | Каждый день на рынке появляются новые валюты и ICO
+                        span.page-block__title__small
+                            | а уже существующие постоянно изменяются в цене
                     // Инфографика
                     .info
-                        .info__column.info__column_3
+                        .info__column.info__column_2
                             .info__tile.info__tile_h
                                 .info__tile__logo
-                                    img.info__tile__img(src='img/info-select.png')
-                                p.info__tile__text Отбор проектов собственно написанной программой с искусственным интеллектом
-                        .info__column.info__column_3
+                                    img.info__tile__img(src='img/info-btc.png')
+                                p.info__tile__text Более <b>1500</b> криптовалют на рынке
+                        .info__column.info__column_2
                             .info__tile.info__tile_h
                                 .info__tile__logo
-                                    img.info__tile__img(src='img/info-risk.png')
-                                p.info__tile__text Улучшенный риск менеджмент
-                        .info__column.info__column_3
-                            .info__tile.info__tile_h
-                                .info__tile__logo
-                                    img.info__tile__img(src='img/info-safe.png')
-                                p.info__tile__text Особая система хранения активов
-                    // spacer
-                    .inner-text__spacer
-                    p.inner-text__text При разработке стратегии мы не делаем ставку на отдельные проекты, а оцениваем криптоэкономику целиком, используя весь потенциал рынка. <br><br> Надежность – приоритет №1. Поэтому даже при падении курса у нашего фонда есть стабилизационные активы, позволяющие исключить риски потерь. <br><br> Минимальная сумма вложений – всего 100$. Это позволяет вам проверить работу нашего фонда не на словах, а на деле. Попробуйте инвестировать 100$ хотя бы на 1 месяц, и по итогу этого времени вы сможете получить ваши деньги обратно, или увеличить сумму вложений, тем самым повысить шанс заработать еще больше.
-                    button.button.button_grad-border.inner-text__button Инвестировать
+                                    img.info__tile__img(src='img/info-vol.png')
+                                p.info__tile__text <b>&gt;100%</b><br>высокая волатильность
+                    .inner-text.inner-text_with-padding
+                        h4.inner-text__title Что с этим делать?
+                        p.inner-text__text В условиях стремительно развивающегося рынка криптовалют важно не упустить свой шанс и использовать новые инструменты для инвестирования. Традиционные активы уже уходят на второй план, уступая место современным технологиям, давая возможность зарабатывать и получать сверхприбыль. Но в погоне за доходом необходимо обладать обширными знаниями рынка, выстраивать стратегии и тратить на это много времени. Для тех, кто хочет зарабатывать с минимальными затратами мы предлагаем современное решение. <br><br> Если вы решили вложить в криптовалюту и увеличивать доход – инвестируйте в криптофонд ToTheMoon. Наши классифицированные специалисты много лет работали на инвестиционных биржах, и теперь с успехом применяют свои знания на рынке криптовалют. Наша команда имеет солидный опыт в разработке выигрышных стратегий. Наша задача – не просто увеличить инвестиции своих клиентов, но и сохранить их от взломов и краж.
+                        // spacer
+                        .inner-text__spacer
+                        // Инфографика
+                        .info
+                            .info__column.info__column_3
+                                .info__tile.info__tile_h
+                                    .info__tile__logo
+                                        img.info__tile__img(src='img/info-select.png')
+                                    p.info__tile__text Отбор проектов собственно написанной программой с искусственным интеллектом
+                            .info__column.info__column_3
+                                .info__tile.info__tile_h
+                                    .info__tile__logo
+                                        img.info__tile__img(src='img/info-risk.png')
+                                    p.info__tile__text Улучшенный риск менеджмент
+                            .info__column.info__column_3
+                                .info__tile.info__tile_h
+                                    .info__tile__logo
+                                        img.info__tile__img(src='img/info-safe.png')
+                                    p.info__tile__text Особая система хранения активов
+                        // spacer
+                        .inner-text__spacer
+                        p.inner-text__text При разработке стратегии мы не делаем ставку на отдельные проекты, а оцениваем криптоэкономику целиком, используя весь потенциал рынка. <br><br> Надежность – приоритет №1. Поэтому даже при падении курса у нашего фонда есть стабилизационные активы, позволяющие исключить риски потерь. <br><br> Минимальная сумма вложений – всего 100$. Это позволяет вам проверить работу нашего фонда не на словах, а на деле. Попробуйте инвестировать 100$ хотя бы на 1 месяц, и по итогу этого времени вы сможете получить ваши деньги обратно, или увеличить сумму вложений, тем самым повысить шанс заработать еще больше.
+                        button.button.button_grad-border.inner-text__button Инвестировать
     // 05
-    article#slide5.page-block.page-block_bordered
-        .container.container_with-sidebar
-            .page-block__content
-                h2.page-block__name + 05. как начать
-                h3.page-block__title 
-                    | Инвестируйте и зарабатывайте<br>без лишних усилий
-                // Инфографика
-                .info.info_centered
-                    .info__column.info__column_center
-                        .info__tile.info__tile_v
-                            .info__tile__logo
-                                img.info__tile__img(src='img/info-sum.png')
-                            p.info__tile__text Минимальная сумма инвестиций - всего 100$
-                    .info__column.info__column_center
-                        .info__tile.info__tile_v
-                            .info__tile__logo
-                                img.info__tile__img(src='img/info-time.png')
-                            p.info__tile__text Вы не тратите время на изучение рынка и отслеживание курса.<br>Мы делаем это за вас
-                    .info__column.info__column_center
-                        .info__tile.info__tile_v
-                            .info__tile__logo
-                                img.info__tile__img(src='img/info-money.png')
-                            p.info__tile__text Вы не нервничаете и получаете стабильный доход каждый месяц
-                // Как начать
-                .inner-text
-                    h4.inner-text__title Как начать зарабатывать
-                    // Шаги
-                    .steps
-                        .steps__item
-                            p.steps__item__number 1
-                            p.steps__item__text Вы регистрируете учетную запись
-                        .steps__item
-                            p.steps__item__number 2
-                            p.steps__item__text Инвестируете в биткоинах желаемую сумму, ваши средства начинают работать
-                        .steps__item
-                            p.steps__item__number 3
-                            p.steps__item__text Через 30 дней фонд начисляет прибыль в долларах<br>(выплата в биткоинах)
-                        .steps__line.steps__line_left
-                        .steps__line.steps__line_right
+    section.background.background_invest
+        article#slide5.page-block.page-block_bordered
+            .container.container_with-sidebar
+                .page-block__content
+                    h2.page-block__name + 05. как начать
+                    h3.page-block__title
+                        | Инвестируйте и зарабатывайте<br>без лишних усилий
+                    // Инфографика
+                    .info.info_centered
+                        .info__column.info__column_center
+                            .info__tile.info__tile_v
+                                .info__tile__logo
+                                    img.info__tile__img(src='img/info-sum.png')
+                                p.info__tile__text Минимальная сумма инвестиций - всего 100$
+                        .info__column.info__column_center
+                            .info__tile.info__tile_v
+                                .info__tile__logo
+                                    img.info__tile__img(src='img/info-time.png')
+                                p.info__tile__text Вы не тратите время на изучение рынка и отслеживание курса.<br>Мы делаем это за вас
+                        .info__column.info__column_center
+                            .info__tile.info__tile_v
+                                .info__tile__logo
+                                    img.info__tile__img(src='img/info-money.png')
+                                p.info__tile__text Вы не нервничаете и получаете стабильный доход каждый месяц
+                    // Как начать
+                    .inner-text
+                        h4.inner-text__title Как начать зарабатывать
+                        // Шаги
+                        .steps
+                            .steps__item
+                                p.steps__item__number 1
+                                p.steps__item__text Вы регистрируете учетную запись
+                            .steps__item
+                                p.steps__item__number 2
+                                p.steps__item__text Инвестируете в биткоинах желаемую сумму, ваши средства начинают работать
+                            .steps__item
+                                p.steps__item__number 3
+                                p.steps__item__text Через 30 дней фонд начисляет прибыль в долларах<br>(выплата в биткоинах)
+                            .steps__line.steps__line_left
+                            .steps__line.steps__line_right
 
-                    p.inner-text__text Все операции фонда проходят для инвестора максимально прозрачно и открыто. Поэтому в любой момент вы можете запросить отчет о проделанной работе и узнать состояние счета в личном кабинете или мобильном приложении.
-                .download-app
-                    a.download-app__link(href='#')
-                        img.download-app__img(src='img/app-store.png')
-                    a.download-app__link(href='#')
-                        img.download-app__img(src='img/google-play.png')
-                // Контактная форма
-                .contact-form
-                    p.contact-form__text Подробнее о процессе сотрудничества с нашим фондом вам расскажет наш специалист. Для этого оставьте свои контакты в форме, и он перезвонит вам в удобное время
-                    .contact-form__input-container
-                        input.contact-form__input(type='text' placeholder='Имя*')
-                        input.contact-form__input(type='text' placeholder='Почта*')
-                        input.contact-form__input(type='text' placeholder='Телефон*')
-                        input.contact-form__input(type='text' placeholder='Удобное время для звонка*')
-                    button.button.button_grad-border Отправить
-    // 06
-    article#slide6.page-block.page-block_bordered
-        .container.container_with-sidebar
-            .page-block__content
-                h2.page-block__name + 06. отзывы
-                .swiper-container.swiper-reply
-                    .swiper-wrapper
-                        - for ($x = 0; $x < 10; $x++)
-                            .swiper-slide
-                                .swiper-scrollbar
-                                .swiper-slide__photo
-                                    img.swiper-slide__img(src='img/gref.png')
-                                p.swiper-slide__name Герман Греф
-                                p.swiper-slide__role Глава Сбербанк
-                                .swiper-slide__reply
-                                    p Глава Волоколамского района Евгений Гаврилов в среду днем прибыл к Центральной районной больнице в Волоколамске, где собрались сотни местных жителей после массового отравления школьников. Чиновник выступил перед участниками стихийного пикета под крики собравшихся: "В отставку!" <br><br> Позже Гаврилов попытался зайти в здание больницы, однако митингующие начали его толкать. По свидетельствам одних очевидцев, Гаврилова ударили в лицо и разбили очки. По другим данным, обошлось без травм, чиновника толкнули несколько раз, после этого он скрылся в здании.
-                    // Пагинация
-                    .swiper-pagination
-                    // Навигация
-                    .swiper-button-next
-                        .swiper-button-next-arrow
-                    .swiper-button-prev
-                        .swiper-button-prev-arrow
-    // 07
-    article#slide7.page-block.page-block_bordered
-        .container.container_with-sidebar
-            .page-block__content
-                h2.page-block__name + 07. мы с вами на связи
-                h3.page-block__title Контакты
-                .contact-block
-                    .contact-block__text
-                        p Узнавайте актуальные новости из мира криптовалюты и ICO, получайте рекомендации по инвестированию и трейдингу на крипторынке в нашем Telegram-канале
-                    button.button.button_grad-border.button_with-icon
-                        img.button__icon(src='img/ico-tlg.png')
-                        | Подписаться
+                        p.inner-text__text Все операции фонда проходят для инвестора максимально прозрачно и открыто. Поэтому в любой момент вы можете запросить отчет о проделанной работе и узнать состояние счета в личном кабинете или мобильном приложении.
+                    .download-app
+                        a.download-app__link(href='#')
+                            img.download-app__img(src='img/app-store.png')
+                        a.download-app__link(href='#')
+                            img.download-app__img(src='img/google-play.png')
+                    // Контактная форма
+                    .contact-form
+                        p.contact-form__text Подробнее о процессе сотрудничества с нашим фондом вам расскажет наш специалист. Для этого оставьте свои контакты в форме, и он перезвонит вам в удобное время
+                        .contact-form__input-container
+                            input.contact-form__input(type='text' placeholder='Имя*')
+                            input.contact-form__input(type='text' placeholder='Почта*')
+                            input.contact-form__input(type='text' placeholder='Телефон*')
+                            input.contact-form__input(type='text' placeholder='Удобное время для звонка*')
+                        button.button.button_grad-border Отправить
+    section.background.background_bottom
+        // 06
+        article#slide6.page-block.page-block_bordered
+            .container.container_with-sidebar
+                .page-block__content
+                    h2.page-block__name + 06. отзывы
+                    .swiper-container.swiper-reply
+                        .swiper-wrapper
+                            - for ($x = 0; $x < 10; $x++)
+                                .swiper-slide
+                                    .swiper-scrollbar
+                                    .swiper-slide__photo
+                                        img.swiper-slide__img(src='img/gref.png')
+                                    p.swiper-slide__name Герман Греф
+                                    p.swiper-slide__role Глава Сбербанк
+                                    .swiper-slide__reply
+                                        p Глава Волоколамского района Евгений Гаврилов в среду днем прибыл к Центральной районной больнице в Волоколамске, где собрались сотни местных жителей после массового отравления школьников. Чиновник выступил перед участниками стихийного пикета под крики собравшихся: "В отставку!" <br><br> Позже Гаврилов попытался зайти в здание больницы, однако митингующие начали его толкать. По свидетельствам одних очевидцев, Гаврилова ударили в лицо и разбили очки. По другим данным, обошлось без травм, чиновника толкнули несколько раз, после этого он скрылся в здании.
+                        // Пагинация
+                        .swiper-pagination
+                        // Навигация
+                        .swiper-button-next
+                            .swiper-button-next-arrow
+                        .swiper-button-prev
+                            .swiper-button-prev-arrow
+        // 07
+        article#slide7.page-block.page-block_bordered
+            .container.container_with-sidebar
+                .page-block__content
+                    h2.page-block__name + 07. мы с вами на связи
+                    h3.page-block__title Контакты
+                    .contact-block
+                        .contact-block__text
+                            p Узнавайте актуальные новости из мира криптовалюты и ICO, получайте рекомендации по инвестированию и трейдингу на крипторынке в нашем Telegram-канале
+                        button.button.button_grad-border.button_with-icon
+                            img.button__icon(src='img/ico-tlg.png')
+                            | Подписаться
+        footer.footer
+            .container.container_with-sidebar
+                .footer__container
+                    a.logo(href='#')
+                        img.logo__img(src='img/logo.png')
+                        p.logo__title
+                            | TOTHEMOON
+                            span.logo__title__fund FUND
+                            span.logo__title__copyright &copy; 2018 tothemoon fund
+                    .footer__contact
+                        p.contact-address г. Астрахань, ул. Полевая 86, офис 854
+                        p.contact-mail tothemoon@mail.ru
+                    .footer__sign
+                        div.footer__sign__wrapper
+                            button.button.button_grad-border Вход
+                            button.button.button_grad-border Регистрация
+                        .footer__sign__bottom
+                            .icon-block
+                                i.icon.icon_instagram
+                                i.icon.icon_fb
+                                i.icon.icon_vk
+                                i.icon.icon_twitter
+                                i.icon.icon_tg
+                            a.contact-phone.contact-phone_with-icon(href='tel:88002000600') 8 800 2000 600
