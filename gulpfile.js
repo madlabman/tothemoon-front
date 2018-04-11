@@ -98,7 +98,7 @@ gulp.task('bower', function() {
         // JS
         .pipe(filterJS)
         .pipe($.concat('vendor.js'))
-        //.pipe($.uglify())
+        .pipe($.if(!dev, $.uglify()))
         .pipe(filterJS.restore)
         // CSS
         .pipe(filterCSS)
