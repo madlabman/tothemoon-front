@@ -127,22 +127,32 @@ function initReplySlider() {
 }
 
 function initScrollSpy() {
-    $('.side-nav__scrollspy__item > a').each(function() {
-        let target = $($(this).attr('href'));
-        if ( target.length ) {
-            let self = $(this);
-            self.scrollspy({
-                min: target.offset().top - 65,
-                max: target.offset().top + target.height() - 75,
-                onEnter: function(element, position) {
-                    self.parent().addClass('side-nav__scrollspy__item_active');
-                },
-                onLeave: function(element, position) {
-                    self.parent().removeClass('side-nav__scrollspy__item_active');
-                }
-            });
+    // $('.side-nav__scrollspy__item > a').each(function() {
+    //     let target = $($(this).attr('href'));
+    //     if ( target.length ) {
+    //         let self = $(this);
+    //         self.scrollspy({
+    //             min: target.offset().top - 65,
+    //             max: target.offset().top + target.height() - 75,
+    //             onEnter: function(element, position) {
+    //                 self.parent().addClass('side-nav__scrollspy__item_active');
+    //             },
+    //             onLeave: function(element, position) {
+    //                 self.parent().removeClass('side-nav__scrollspy__item_active');
+    //             }
+    //         });
+    //     }
+    // });
+    let slide_2 = $('#slide2');
+    slide_2.scrollspy({
+        min: slide_2.offset().top - $(window).height() / 2,
+        onEnter: () => {
+            animateCounter();
+        },
+        onLeave: () => {
+            $('.day-change__value').removeClass('animate');
         }
-    });
+    })
 }
 
 function sixMonthAgoDate() {
@@ -176,7 +186,8 @@ function initPriceChart() {
             if (current_price !== undefined && yesterday_price !== undefined) {
                 let price_change = ((+current_price - +yesterday_price) / +yesterday_price * 100).toFixed(2);
                 if (price_change > 0) price_change = `+${price_change}`;
-                d3.select('.day-change__value').html(`${price_change}%`);
+                d3.select('.day-change__value').html(`${price_change}%`)
+                    .attr('data-value', +price_change);
             }
         })
     });
@@ -260,12 +271,18 @@ function initPriceChart() {
             chart_g.append('path')
                 .datum(dataset)
                 .attr('fill', '#1d1d1d')
+                .attr('data-aos', 'fade-right')
+                .attr('data-aos-anchor', '#price-chart')
+                .attr('data-aos-duration', 2000)
                 .attr('d', area_back);
 
             chart_g.append('path')
                 .datum(dataset)
                 .attr('fill', 'url(#chart-gradient)')
                 .attr('fill-opacity', '1')
+                .attr('data-aos', 'fade-left')
+                .attr('data-aos-anchor', '#price-chart')
+                .attr('data-aos-duration', 2000)
                 .attr('d', area_front);
 
             chart_g.append("g")
@@ -356,7 +373,10 @@ function initCapitalizationChart() {
             // console.log('step: ' + step);
             // console.log('count: ' + data_set.length);
             let small_bars = chart_g.append('g')
-                .attr('class', 'bar-chart__small-bars');
+                .attr('class', 'bar-chart__small-bars')
+                .attr('data-aos', 'fade-left')
+                .attr('data-aos-anchor', '#cap-chart')
+                .attr('data-aos-duration', 2000);
             if (step > 0) {
                 for (let k = 0; k < data_set.length; k += step) {
                     let bar_height = y(data_set[k].value);
@@ -377,6 +397,9 @@ function initCapitalizationChart() {
             let bisectDate = d3.bisector(function(d) { return d.date; }).right;
             chart_g.append('g')
                 .attr('class', 'bar-chart__bars')
+                .attr('data-aos', 'fade-right')
+                .attr('data-aos-anchor', '#cap-chart')
+                .attr('data-aos-duration', 2000)
                 .call(d3.axisBottom(x).ticks(6))
                 .selectAll('line').each((date) => {
                     let s_date_i = bisectDate(data_set, date);
@@ -430,6 +453,25 @@ function initCapitalizationChart() {
         })
 }
 
+// Animations
+
+function animateCounter() {
+    $('.day-change__value.animate').each(function () {
+        $(this).prop('counter', 0).animate({
+            counter: $(this).data('value')
+        }, {
+            duration: 1000,
+            easing: 'swing',
+            step: function (now) {
+                // console.log(`step: ${now}`);
+                let step = now.toFixed(2);
+                if (step >= 0) step = '+' + step;
+                $(this).text(`${step}%`);
+            }
+        });
+    });
+}
+
 $(document).ready(function() {
     // Init
     initGradients();
@@ -440,6 +482,9 @@ $(document).ready(function() {
     smoothScroll();
     initPriceChart();
     initCapitalizationChart();
+    initScrollSpy();
+
+    AOS.init();
 
     $(window).resize(() => { stepsLines(); })
 });
