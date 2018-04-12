@@ -3,6 +3,8 @@
   
   &_with-padding
     padding-right: 18%
+    @include media('<desktop')
+      padding-right: 0
 
   &__title
     margin-bottom: 26px
@@ -10,6 +12,9 @@
     font-weight: 500
     color: #00fff2
     text-transform: uppercase
+    @include media('<=tablet')
+      @include font-size(28)
+      text-align: center
 
   &__text
     @include font-size(14)

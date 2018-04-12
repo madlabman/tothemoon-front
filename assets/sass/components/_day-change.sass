@@ -24,6 +24,8 @@
 
   &__chart
     margin-bottom: 16px
+    @include media('<laptop')
+      overflow-x: auto
 
     &__domain,
     &__axis
@@ -34,3 +36,5 @@
 
   &__svg
     width: 100%
+    @include media('<laptop')
+      width: auto

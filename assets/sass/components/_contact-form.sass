@@ -1,17 +1,17 @@
 .contact-form
   position: relative
   padding: 38px 52px
-  border: 4px solid
-  border-top-style: none
-  border-bottom-style: none
-  border-left-color: #00fff2
-  border-right-color: #0b988a
+  border: 4px none
+  border-right: solid #0b988a
+  border-left: solid #00fff2
+  @include media('<phone')
+    padding: 20px
   &:after,
   &:before
     content: ''
     position: absolute
     display: block
-    height: 4px
+    height: 3px
     background: linear-gradient(to right, #00fff2, #0b988a)
     left: 0
     right: 0
@@ -25,6 +25,9 @@
     @include font-size(22)
     font-weight: 500
     @include line-height(30)
+    @include media('<=laptop')
+      @include font-size(16)
+      @include line-height(20)
 
   &__input-container
     display: flex
@@ -36,8 +39,7 @@
     flex-basis: 42%
     margin-right: 8%
     margin-bottom: 8px
-    padding: 12px 0
-    padding-left: 3px
+    padding: 12px 0 12px 3px
     border: none
     background-color: transparent
     border-bottom: 1px solid #0bc9c8
@@ -46,3 +48,4 @@
     font-weight: 500
     +placeholder
       color: #fff
+      opacity: 1

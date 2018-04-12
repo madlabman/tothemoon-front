@@ -34,6 +34,10 @@
     
     &-prev
       left: 35%
+      @include media('<tablet')
+        left: 31%
+      @include media('<phone')
+        left: 60px
       &-arrow
         position: relative
         @include triangle(right, 7, #00fff2)
@@ -48,6 +52,12 @@
 
     &-next
       right: 30%
+      @include media('<laptop')
+        right: 28%
+      @include media('<tablet')
+        right: 24%
+      @include media('<phone')
+        right: 0
       &-arrow
         position: relative
         @include triangle(left, 7, #00fff2)
@@ -87,6 +97,13 @@
       padding-top: 52px
       @include line-height(16)
       transition: opacity 0.3s ease-in-out
+      @include media('<laptop')
+        left: -50%
+        right: -50%
+      @include media('<phone')
+        position: relative
+        left: auto
+        right: auto
 
     &-active
       @include grayscale_element(0%)

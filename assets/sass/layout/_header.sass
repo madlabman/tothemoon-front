@@ -11,14 +11,22 @@
     justify-content: flex-start
     align-items: center
     padding-right: 15px
+    @include media('<tablet')
+      justify-content: space-between
+    @include media('<phone')
+      padding-right: 0
 
   &__block_left,
   &__block_right
     margin-top: 35px
   &__block_left
     padding-left: 104px
+    @include media('<laptop')
+      padding-left: 30px
   &__block_right
     margin-left: auto
+    @include media('<phone')
+      display: none
 
   &__sandwich
     position: relative
@@ -38,6 +46,8 @@
       border-top: none
       border-bottom: none
       padding-top: 35px
+      @include media('<tablet')
+        border: none
     &__line
       position: absolute
       display: block
@@ -57,6 +67,9 @@
     display: flex
     align-items: center
     margin-bottom: 32px
+    @include media('<tablet')
+      flex-direction: column
+      margin-bottom: 10px
 
   &__sign
     display: flex
@@ -64,3 +77,5 @@
     .button
       &:first-child
         margin-right: 10px
+      @include media('<tablet')
+        min-width: 120px

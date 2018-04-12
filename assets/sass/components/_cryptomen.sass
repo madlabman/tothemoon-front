@@ -1,11 +1,22 @@
 .cryptomen
   display: flex
+  @include media('<laptop')
+    flex-direction: column
 
   &__column
     display: flex
+    @include media('<laptop')
+      max-width: 100% !important
+      flex-basis: 100% !important
+      padding-right: 30% !important
+      margin-bottom: 30px
+    @include media('<laptop')
+      padding-right: 0 !important
     &:nth-child(1)
       max-width: 40%
       flex-basis: 40%
+      @include media('<desktop')
+        padding-right: 15px
     &:nth-child(2)
       max-width: 37.8%
       flex-basis: 37.8%
@@ -13,6 +24,8 @@
       max-width: 22.2%
       flex-basis: 22.2%
       padding-right: 37px
+      @include media('<desktop')
+        padding-right: 0
 
   &__photo
     margin-right: 16px

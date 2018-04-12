@@ -123,6 +123,11 @@ function initReplySlider() {
             prevEl: '.swiper-button-prev',
         },
         roundLengths: true,
+        breakpoints: {
+            480: {
+                slidesPerView: 1
+            }
+        }
     });
 }
 
@@ -203,7 +208,8 @@ function initPriceChart() {
     let price_chart = d3.select('.day-change__chart').append('svg')
         .attr('class', 'day-change__svg')
         .attr('width', width)
-        .attr('height', height);
+        .attr('height', height)
+        .attr('viewBox', `0 0 ${width} ${height}`);
 
     width -= margin.left + margin.right;
     height -= margin.top + margin.bottom;
@@ -329,6 +335,7 @@ function initCapitalizationChart() {
     let margin = {top: 20, right: 50, bottom: 50, left: 120};
 
     let cap_chart = d3.select('.bar-chart__container').append('svg')
+        .attr('class', 'bar-chart__svg')
         .attr('width', width)
         .attr('height', height)
         .attr('viewBox', `0 0 ${width} ${height}`);

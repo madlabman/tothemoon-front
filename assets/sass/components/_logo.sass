@@ -1,4 +1,5 @@
 .logo
+  $logo: &
   position: relative
   display: flex
   align-items: center
@@ -11,6 +12,8 @@
     @include font-size(22.47)
     color: #fff
     @include line-height(26)
+    @include media('<phone')
+      display: none
     &__fund
       @include font-size(32.76)
       display: block
@@ -21,3 +24,5 @@
       @include font-size(10)
       line-height: 1
       text-transform: uppercase
+      @include media('<phone')
+        display: none

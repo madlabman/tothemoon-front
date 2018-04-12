@@ -4,10 +4,14 @@
   &_promo
     background-image: url('../img/promo-bg.jpg')
     background-size: cover
+    @include media('<=laptop')
+      background-position: center center
 
   &_new-way
     background: url('../img/new-way-bg.png') no-repeat center 68%
     background-size: contain
+    @include media('<=laptop')
+      background-size: unset
 
   &_invest
     background-image: url('../img/invest-bg.png')

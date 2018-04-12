@@ -12,6 +12,11 @@
 
   &__content
     padding-left: 104px
+    @include media('<desktop')
+      padding-left: 30px
+    @include media('<phone')
+      padding-left: 15px
+      padding-right: 15px
   
   &__name
     margin-bottom: 31px
@@ -26,6 +31,16 @@
     font-weight: 500
     @include line-height(42.5)
     text-transform: uppercase
+    @include media('<desktop')
+      @include font-size(42)
+    @include media('<laptop')
+      @include font-size(36)
+      line-height: 1
+    @include media('<tablet')
+      @include font-size(28)
+    @include media('<phone')
+      padding-right: 15px
+      @include font-size(20)
 
     &__small
       display: block
@@ -34,6 +49,9 @@
       font-weight: 300
       @include line-height(32)
       text-transform: none
+      @include media('<phone')
+        @include font-size(16)
+        line-height: 1
 
   &__text
     margin-bottom: 32px

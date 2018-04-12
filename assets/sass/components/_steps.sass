@@ -7,9 +7,14 @@
   padding-bottom: 54px
   // padding-left: 40px
   // padding-right: 40px
+  @include media('<=tablet')
+    margin-right: 0
+    flex-direction: column
 
   &__item
     $item: &
+    @include media('<=tablet')
+      margin-bottom: 40px
 
     &:nth-child(1)
       flex-basis: 25%
@@ -42,9 +47,13 @@
       @include font-size(16)
       line-height: 1.4
       text-align: center
+      @include media('<=laptop')
+        @include font-size(14)
 
   &__line
     position: absolute
     height: 1px
     top: 72px
     background-color: #00fff2
+    @include media('<=tablet')
+      display: none

@@ -3,6 +3,9 @@
   &__container
     padding-top: 233px
     padding-bottom: 162px
+    @include media('<phone')
+      padding-top: 140px
+      padding-bottom: 55px
 
   &__text
     @include font-size(31)
@@ -11,6 +14,11 @@
     text-transform: uppercase
     &:not(:last-child)
       margin-bottom: 50px
+      @include media('<phone')
+        margin-bottom: 30px
+    @include media('<phone')
+      @include font-size(20)
+      @include line-height(24)
 
   &__span
     font-weight: 700
