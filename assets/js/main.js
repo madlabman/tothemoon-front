@@ -193,7 +193,7 @@ function initPriceChart() {
     });
 
     let width = 1000;
-    let height = 350;
+    let height = 380;
     let margin = {top: 20, right: 20, bottom: 50, left: 60};
 
     let t = d3.transition()
@@ -201,6 +201,7 @@ function initPriceChart() {
         .ease(d3.easeLinear);
 
     let price_chart = d3.select('.day-change__chart').append('svg')
+        .attr('class', 'day-change__svg')
         .attr('width', width)
         .attr('height', height);
 

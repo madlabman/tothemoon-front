@@ -6,9 +6,10 @@
     text-transform: uppercase
 
   &__value
+    margin-left: -5px
     @include font-size(29.56)
     font-weight: 900
-    line-height: 1
+    @include line-height(33)
     color: #00fff2
 
   &__star
@@ -17,10 +18,12 @@
     color: #00fff2
 
   &__span
+    margin-left: -6px
     @include font-size(12)
     font-weight: 500
 
   &__chart
+    margin-bottom: 16px
 
     &__domain,
     &__axis
@@ -28,3 +31,6 @@
         font-family: 'exo', sans-serif
         @include font-size(11)
         color: #cbcbcb
+
+  &__svg
+    width: 100%
