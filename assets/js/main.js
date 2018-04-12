@@ -1,12 +1,12 @@
 "use strict";
 
-function buttonsBorder() {
-    // Buttons
+function initGradients() {
     let grad_svg = d3.select('body').append('svg')
         .attr('width', '0')
         .attr('height', '0')
         .attr('style', 'position: absolute');
     let grad_defs = grad_svg.append('defs');
+    // Button border gradient
     let gradient = grad_defs.append('linearGradient')
         .attr('id', 'border-gradient')
         .attr('gradientUnits', 'objectBoundingBox')
@@ -17,7 +17,22 @@ function buttonsBorder() {
     gradient.append('stop')
         .attr('offset', '100%')
         .attr('stop-color', 'rgb(15,163,149)');
+    // Chart bars gradient
+    gradient = grad_defs.append('linearGradient')
+        .attr('id', 'chart-gradient')
+        .attr('gradientUnits', 'objectBoundingBox')
+        .attr('gradientTransform', 'rotate(90)');
+    gradient.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', 'rgb(0,255,242)');
+    gradient.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', 'rgb(0,255,242)')
+        .attr('stop-opacity', '0');
+}
 
+function buttonsBorder() {
+    // Buttons
     let buttons_svg = d3.selectAll('.button_grad-border').append('svg')
         .attr('viewBox', '1 1 152 40')
         .attr('preserveAspectRatio', 'none');
@@ -144,6 +159,12 @@ function dayFromDate(e) {
     return e.toISOString().slice(8, 10)
 }
 
+function dateFromTimestamp(t) {
+    let d = new Date();
+    d.setTime(+t * 1000);
+    return d;
+}
+
 function initPriceChart() {
     const current_price_url = `https://api.coindesk.com/v1/bpi/currentprice/USD.json`;
     const yesterday_price_url = `https://api.coindesk.com/v1/bpi/historical/close.json?for=yesterday`;
@@ -153,8 +174,8 @@ function initPriceChart() {
             let current_price = current_price_json.bpi.USD.rate_float;
             let yesterday_price = Object.values(yesterday_price_json.bpi)[0];
             if (current_price !== undefined && yesterday_price !== undefined) {
-                let price_change = (+current_price - +yesterday_price) / +yesterday_price * 100;
-                if (price_change > 0) price_change = `+${price_change.toFixed(2)}`;
+                let price_change = ((+current_price - +yesterday_price) / +yesterday_price * 100).toFixed(2);
+                if (price_change > 0) price_change = `+${price_change}`;
                 d3.select('.day-change__value').html(`${price_change}%`);
             }
         })
@@ -176,22 +197,10 @@ function initPriceChart() {
     height -= margin.top + margin.bottom;
 
     let chart_g = price_chart.append('g').attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    let grad_defs = price_chart.append('defs');
-    let gradient = grad_defs.append('linearGradient')
-        .attr('id', 'chart-gradient')
-        .attr('gradientUnits', 'objectBoundingBox')
-        .attr('gradientTransform', 'rotate(90)');
-    gradient.append('stop')
-        .attr('offset', '0%')
-        .attr('stop-color', 'rgb(0,255,242)');
-    gradient.append('stop')
-        .attr('offset', '100%')
-        .attr('stop-color', 'rgb(0,255,242)')
-        .attr('stop-opacity', '0');
 
     let stop_date = new Date();
     let start_date = sixMonthAgoDate();
-    let parse_time = d3.timeParse("%Y-%m-%d");
+    let parse_time = d3.timeParse('%Y-%m-%d');
 
     // console.log('toYMD: 'toYMD(new Date()));
     // console.log('time_parse: ' + parse_time(toYMD(new Date())));
@@ -265,17 +274,17 @@ function initPriceChart() {
                 .call(d3.axisBottom(x).ticks(6))
                 .selectAll("text")
                 .transition(t)
-                .style("text-anchor", "end")
-                .attr("dx", "-.8em")
-                .attr("dy", ".15em")
+                .style('text-anchor', 'end')
+                .attr('dx', '-.8em')
+                .attr('dy', '.15em')
                 .attr('fill', '#cbcbcb');
 
             // add the Y gridlines
-            chart_g.append("g")
-                .attr("class", "grid")
+            chart_g.append('g')
+                .attr('class', 'grid')
                 .call(d3.axisLeft(y).ticks(5)
                     .tickSize(-width)
-                    .tickFormat("")
+                    .tickFormat('')
                 )
                 .selectAll('line')
                 .attr('stroke', '#717171')
@@ -287,21 +296,150 @@ function initPriceChart() {
                 .call(d3.axisLeft(y).ticks(5))
                 .selectAll('text')
                 .style('text-anchor', 'start')
-                .attr("dx", "-.8em")
-                .attr("dy", ".15em")
+                .attr('dx', '-.8em')
+                .attr('dy', '.15em')
+                .attr('fill', '#cbcbcb')
+                .text((e) => { return `$${d3.format(',')(e)}` });
+    })
+}
+
+function initCapitalizationChart() {
+    let api_url = 'https://api.blockchain.info/charts/market-cap?timespan=all&format=json&cors=true';
+
+    let width = 1000;
+    let height = 350;
+    let margin = {top: 20, right: 50, bottom: 50, left: 120};
+
+    let cap_chart = d3.select('.bar-chart__container').append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('viewBox', `0 0 ${width} ${height}`);
+
+    width -= margin.left + margin.right;
+    height -= margin.top + margin.bottom;
+
+    let chart_g = cap_chart.append('g').attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // console.log('time_parse: ' + parse_time('1230940800'));
+    // console.log(dateFromTimestamp(1230940800));
+
+    let x = d3.scaleTime()
+        .rangeRound([0, width]);
+    let y = d3.scaleLinear()
+        .rangeRound([height, 0]);
+
+    d3.json(
+        api_url,
+        (data) => {
+
+            let data_values = data.values.map((d, i) => {
+                return {
+                    date: dateFromTimestamp(d.x),
+                    value: +d.y
+                }
+            });
+            let data_set = data_values.filter((d) => {
+                return d.date.getFullYear() >= 2017 && d.value > 0
+            });
+
+            // console.log(data_set);
+
+            x.domain(d3.extent(data_set, (d) => { return d.date }));
+            let y_min = d3.min(data_set, (d) => { return d.value });
+            y.domain([
+                y_min,
+                d3.max(data_set, (d) => { return d.value })
+            ]);
+
+            // Bars
+            let step = Math.round(data_set.length / 90);
+            // console.log('step: ' + step);
+            // console.log('count: ' + data_set.length);
+            let small_bars = chart_g.append('g')
+                .attr('class', 'bar-chart__small-bars');
+            if (step > 0) {
+                for (let k = 0; k < data_set.length; k += step) {
+                    let bar_height = y(data_set[k].value);
+                    // console.log('bar_height: ' + bar_height);
+                    // console.log('height: ' + height);
+                    small_bars.append('rect')
+                        .attr('x', x(data_set[k].date))
+                        .attr('y', bar_height)
+                        .attr('width', '5')
+                        .attr('height', height - bar_height)
+                        .attr('fill', 'url(#chart-gradient)')
+                        .attr('fill-opacity', '0.3')
+                        // .attr('transform', `translate(0,${height})`);
+                }
+            }
+
+            // Adding big bars
+            let bisectDate = d3.bisector(function(d) { return d.date; }).right;
+            chart_g.append('g')
+                .attr('class', 'bar-chart__bars')
+                .call(d3.axisBottom(x).ticks(6))
+                .selectAll('line').each((date) => {
+                    let s_date_i = bisectDate(data_set, date);
+                    let bar_height = y(data_set[s_date_i].value);
+                    let bar_x_offset = x(data_set[s_date_i].date);
+                    // console.log(`tick date: ${date} index: ${s_date_i}`);
+                    // console.log(`bar_height: ${bar_height}, bar_x_offset: ${bar_x_offset}`);
+                    d3.select('.bar-chart__bars').append('rect')
+                        .attr('x', bar_x_offset - 60)
+                        .attr('y', bar_height - 10)
+                        .attr('width', 60)
+                        .attr('height', height - bar_height)
+                        .attr('fill', 'url(#chart-gradient)');
+                    d3.select('.bar-chart__bars').append('circle')
+                        .attr('cx', bar_x_offset - 30)
+                        .attr('cy', height + 10)
+                        .attr('r', 6)
+                        .attr('fill', '#00fff2')
+                });
+            // Adding axis
+            d3.select('.bar-chart__bars').selectAll('.tick')
+                .attr('transform', (date) => {
+                    let s_date_i = bisectDate(data_set, date);
+                    let x_offset = x(data_set[s_date_i].date);
+                    return `translate(${x_offset - 30},${height + 20})`;
+                })
+                .selectAll('text')
+                .attr('class', 'bar-chart__axis__text');
+
+            // add the Y gridlines
+            chart_g.append('g')
+                .attr('class', 'grid')
+                .call(d3.axisLeft(y).ticks(5)
+                    .tickSize(-width)
+                    .tickFormat("")
+                )
+                .selectAll('line')
+                .attr('stroke', '#717171')
+                .attr('stroke-opacity', '0.51');
+            // Add domain line
+            chart_g.append('g')
+                .style('transform', `translate(-90px,0)`)
+                .attr('class', 'bar-chart__domain')
+                .call(d3.axisLeft(y).ticks(5))
+                .selectAll('text')
+                .style('text-anchor', 'start')
+                .attr('dx', '-.8em')
+                .attr('dy', '.15em')
                 .attr('fill', '#cbcbcb')
                 .text((e) => { return `$${d3.format(",")(e)}` });
-    })
+        })
 }
 
 $(document).ready(function() {
     // Init
+    initGradients();
     buttonsBorder();
     stepsBorder();
     stepsLines();
     initReplySlider();
     smoothScroll();
     initPriceChart();
+    initCapitalizationChart();
 
     $(window).resize(() => { stepsLines(); })
 });
