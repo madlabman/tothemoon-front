@@ -14,11 +14,13 @@
     padding-right: 5%
 
     &_2
-      max-width: 25%
       flex-basis: 25%
       @include media('<laptop')
-        max-width: 50%
         flex-basis: 50%
+      @include media('<phone')
+        flex-basis: 100%
+      &:not(:last-child)
+        margin-bottom: 15px
 
     &_3
       &:first-child
@@ -37,18 +39,20 @@
 
     &_center
       @include media('<phone')
-        max-width: 45% !important
+        //max-width: 45% !important
         flex-basis: 45% !important
         &:not(:last-child)
           margin-bottom: 15px
       &:nth-child(2n+1)
-        max-width: 30%
+        //max-width: 30%
         flex-basis: 30%
       &:nth-child(2n)
-        max-width: 40%
+        //max-width: 40%
         flex-basis: 40%
       @include media('<laptop')
         padding-right: 0
+      @include media('<phone')
+        flex-basis: 80% !important
 
   
   &__tile

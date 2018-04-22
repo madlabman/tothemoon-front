@@ -26,6 +26,8 @@
 
   &-block
     display: inline-block
+    @include media('<phone')
+      padding-bottom: 15px
 
     #{$icon}
       margin-right: 10px

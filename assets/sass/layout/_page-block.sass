@@ -41,6 +41,8 @@
     @include media('<phone')
       padding-right: 15px
       @include font-size(20)
+    @include media('<=iphone')
+      @include font-size(16)
 
     &__small
       display: block
@@ -52,6 +54,8 @@
       @include media('<phone')
         @include font-size(16)
         line-height: 1
+      @include media('<=iphone')
+        @include font-size(14)
 
   &__text
     margin-bottom: 32px

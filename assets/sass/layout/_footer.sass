@@ -12,6 +12,10 @@
       padding-left: 30px
     @include media('<laptop')
       flex-wrap: wrap
+    @include media('<phone')
+      flex-direction: column
+      padding-left: 0
+      padding-right: 0
 
   &__sign
     display: flex
@@ -27,6 +31,12 @@
 
     &__wrapper
       margin-bottom: 19px
+      @include media('<=iphone')
+        .button
+          min-width: 120px
+
+    &__bottom
+      text-align: center
 
   &__contact
     margin-left: auto
@@ -38,6 +48,8 @@
     @include media('<phone')
       flex-basis: unset
       padding-right: 15px
+      margin-left: 0
+      margin-top: 15px
     .contact-address
       margin-bottom: 16px
 

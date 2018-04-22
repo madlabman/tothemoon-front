@@ -37,11 +37,19 @@
       @include font-size(72)
       text-align: center
       @include line-height(98)
+      @include media('<phone')
+        width: 70px
+        height: 70px
+        @include font-size(32)
+        @include line-height(70)
 
     &__circle
       position: absolute
       top: 0
       left: 0
+      @include media('<phone')
+        width: 70px
+        height: 70px
 
     &__text
       @include font-size(16)
