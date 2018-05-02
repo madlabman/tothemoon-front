@@ -1,0 +1,65 @@
+.lk
+
+  .lk-block
+    margin-top: 170px
+    padding: 0
+    border-top: 1px solid #272727
+
+    .container
+      display: flex
+      justify-content: center
+
+    &__title
+      margin-bottom: 30px
+      @include font-size(24)
+      font-weight: 100
+      @include line-height(42.55)
+
+  &-menu
+    padding: 50px 9% 60px
+    flex-basis: 35%
+    border-right: 1px solid rgba(40, 40, 40, 0.8)
+
+    &__main-nav
+      margin-bottom: 80px
+      &__item
+        padding: 8px 0
+        @include font-size(16)
+        font-weight: 100
+        @include line-height(22)
+        border-bottom: 1px solid rgba(255, 255, 255, 0.4)
+        &:hover,
+        & > .router-link-active
+          color: #00fff2
+
+    &__bottom-nav
+      &__item
+        position: relative
+        padding-bottom: 15px
+        padding-left: 25px
+        @include font-size(16)
+        font-weight: 100
+        @include line-height(22)
+        &:before
+          content: ''
+          position: absolute
+          display: inline-block
+        &_settings
+          &:before
+            top: 6px
+            left: 0
+            width: 12px
+            height: 12px
+            background: url('../img/settings.png')
+        &_logout
+          &:before
+            top: 6px
+            left: 0
+            width: 11px
+            height: 9px
+            background: url('../img/logout.png')
+
+  &-page
+    padding-top: 50px
+    padding-left: 50px
+    flex-basis: 65%

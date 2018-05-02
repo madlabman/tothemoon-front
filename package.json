@@ -13,11 +13,16 @@
   "author": "chtotonetak <madlabman@mail.ru>",
   "license": "MIT",
   "devDependencies": {
+    "@websanova/vue-auth": "^2.21.9-beta",
+    "axios": "^0.18.0",
     "babel-core": "^6.4.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-register": "^6.5.2",
+    "babelify": "^8.0.0",
     "browser-sync": "^2.2.1",
+    "browserify": "^16.2.0",
     "del": "^2.2.0",
+    "fs": "^0.0.1-security",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.0.1",
     "gulp-babel": "^7.0.1",
@@ -41,7 +46,15 @@
     "gulp-uglify": "^2.0.0",
     "gulp-useref": "^3.0.0",
     "include-media": "^1.4.9",
+    "jade": "^1.11.0",
+    "partialify": "^3.1.6",
     "run-sequence": "^1.2.2",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0",
+    "vue": "^2.5.16",
+    "vue-axios": "^2.1.1",
+    "vue-router": "^3.0.1",
+    "vueify": "^9.4.1",
     "wiredep": "^4.0.0"
   },
   "eslintConfig": {
@@ -57,5 +70,8 @@
         "single"
       ]
     }
+  },
+  "browser": {
+    "vue": "vue/dist/vue.common.js"
   }
 }

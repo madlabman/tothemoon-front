@@ -1,0 +1,61 @@
+.balance
+
+  &__button
+    padding: 13px 20px
+    @include font-size(15)
+    font-family: 'museo', sans-serif
+    font-weight: 500
+    border: none
+    border-radius: 3px
+    color: #000
+    cursor: pointer
+
+    &__sign
+      padding-right: 12px
+      @include font-size(18)
+      
+    &_pay
+      margin-right: 25px
+      color: #fff
+      background-color: #b2072b
+
+  &__stat
+    padding-top: 50px
+    padding-bottom: 65px
+    width: 55%
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+
+    &__item
+      display: flex
+      flex-direction: column
+      align-items: center
+      font-family: 'PT Sans Caption', sans-serif
+      @include font-size(12)
+      &:before
+        order: -2
+        content: ''
+        display: inline-block
+        @include font-size(24)
+        color: #00cdc3
+        font-family: 'exo', sans-serif
+      &:after
+        order: -1
+        margin: 7px 0
+        content: ''
+        display: block
+        width: 48px
+        height: 1px
+        background: #fff
+      &_usd
+        &:before
+          content: '$'
+      &_btc
+        &:before
+          content: 'BTC'
+      &_rub
+        &:before
+          content: '₽'
+          font-weight: 400
+

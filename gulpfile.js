@@ -1,8 +1,16 @@
 const gulp              = require('gulp');
 const gulpLoadPlugins   = require('gulp-load-plugins');
+
+const babelify          = require('babelify');
+const browserify        = require('browserify');
 const browserSync       = require('browser-sync').create();
+const buffer            = require('vinyl-buffer');
 const del               = require('del');
+const fs                = require('fs');
+const partialify        = require('partialify');
 const runSequence       = require('run-sequence');
+const source            = require('vinyl-source-stream');
+const vueify            = require('vueify');
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -50,6 +58,24 @@ gulp.task('js', () => {
         .pipe(reload({stream: true}));
 });
 
+// JS
+gulp.task('vue-js', () => {
+    browserify('./assets/vue-js/main.js')
+        .transform(babelify)
+        .transform(partialify)
+        .transform(vueify)
+        .bundle()
+        .on('error', function (err) {
+            console.log('***** BROWSERIFY ERROR: ' + err.message);
+            // this.emit('end');
+        })
+        .pipe(source('lk-build.js'))
+        .pipe(buffer())
+        .pipe($.uglify())
+        .pipe(gulp.dest('./dist/js'))
+        .pipe(reload({stream:true}));
+});
+
 function lint(files) {
     return gulp.src(files)
         .pipe($.eslint({ fix: true }))
@@ -66,10 +92,10 @@ gulp.task('lint', () => {
 gulp.task('images', () => {
     return gulp.src('./assets/img/**/*')
         .pipe($.plumber())
-        .pipe($.cache($.imagemin([
-            $.imagemin.jpegtran({progressive: true}),
-            $.imagemin.optipng({optimizationLevel: 5}),
-        ])))
+        .pipe($.imagemin([
+            // $.imagemin.jpegtran({progressive: true}),
+            // $.imagemin.optipng({optimizationLevel: 3}),
+        ]))
         .pipe(gulp.dest('./dist/img'));
 });
 
@@ -117,7 +143,7 @@ gulp.task('clean:dist', function() {
 // Build task
 gulp.task('build', function (callback) {
     runSequence('clean:dist',
-        ['html', 'sass', 'js', 'images', 'fonts', 'bower'],
+        ['html', 'sass', 'js', 'vue-js', 'images', 'fonts', 'bower'],
         callback
     )
 });
@@ -140,4 +166,5 @@ gulp.task('default', ['build', 'sync'], () => {
     gulp.watch('assets/html/**/*.pug', ['html']);
     gulp.watch('assets/sass/**/*.sass', ['sass']);
     gulp.watch('assets/js/**/*.js', ['js']);
+    gulp.watch('assets/vue-js/**/*.+(js|vue)', ['vue-js']);
 });

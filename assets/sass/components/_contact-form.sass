@@ -34,6 +34,10 @@
     flex-wrap: wrap
     padding-bottom: 24px
 
+  &__error
+    @include font-size(12)
+    opacity: 0.8
+
   &__input
     max-width: 42%
     flex-basis: 42%
@@ -52,3 +56,6 @@
     @include media('<phone')
       max-width: 100%
       flex-basis: 100%
+
+    &_error
+      border-bottom: 1px solid #c91479

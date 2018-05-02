@@ -57,17 +57,18 @@ function stepsBorder() {
 }
 
 function stepsLines() {
-    let steps = d3.select('.steps').node().getBoundingClientRect();
-    let step_1 = d3.select('.steps__item:nth-child(1) .steps__item__number').node().getBoundingClientRect();
-    let step_2 = d3.select('.steps__item:nth-child(2) .steps__item__number').node().getBoundingClientRect();
-    let step_3 = d3.select('.steps__item:nth-child(3) .steps__item__number').node().getBoundingClientRect();
-    d3.select('.steps__line_left')   // left line
-        .attr('style', `left: ${step_1.left + step_1.width - steps.left + 20}px;
+    if (d3.select('.steps').node() !== null) {
+        let steps = d3.select('.steps').node().getBoundingClientRect();
+        let step_1 = d3.select('.steps__item:nth-child(1) .steps__item__number').node().getBoundingClientRect();
+        let step_2 = d3.select('.steps__item:nth-child(2) .steps__item__number').node().getBoundingClientRect();
+        let step_3 = d3.select('.steps__item:nth-child(3) .steps__item__number').node().getBoundingClientRect();
+        d3.select('.steps__line_left')   // left line
+            .attr('style', `left: ${step_1.left + step_1.width - steps.left + 20}px;
                     right: ${steps.right - step_2.right + step_2.width + 20}px`);
-    d3.select('.steps__line_right')  // right line
-        .attr('style', `left: ${step_2.left + step_2.width - steps.left + 20}px;
+        d3.select('.steps__line_right')  // right line
+            .attr('style', `left: ${step_2.left + step_2.width - steps.left + 20}px;
                     right: ${steps.right - step_3.right + step_3.width + 20}px`);
-
+    }
 }
 
 function smoothScroll() {
@@ -76,6 +77,7 @@ function smoothScroll() {
     // Remove links that don't actually link to anything
         .not('[href="#"]')
         .not('[href="#0"]')
+        .not('[href^="#/"]')
         .click(function (event) {
             // On-page links
             if (
@@ -149,15 +151,17 @@ function initScrollSpy() {
     //     }
     // });
     let slide_2 = $('#slide2');
-    slide_2.scrollspy({
-        min: slide_2.offset().top - $(window).height() / 2,
-        onEnter: () => {
-            animateCounter();
-        },
-        onLeave: () => {
-            $('.day-change__value').removeClass('animate');
-        }
-    })
+    if (slide_2.length) {
+        slide_2.scrollspy({
+            min: slide_2.offset().top - $(window).height() / 2,
+            onEnter: () => {
+                animateCounter();
+            },
+            onLeave: () => {
+                $('.day-change__value').removeClass('animate');
+            }
+        })
+    }
 }
 
 function sixMonthAgoDate() {
