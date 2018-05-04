@@ -53,7 +53,7 @@ gulp.task('js', () => {
         .pipe($.plumber())
         .pipe($.babel())
         .pipe($.uglify())
-        .pipe($.concat('build.js'))
+        // .pipe($.concat('build.js'))
         .pipe(gulp.dest('./dist/js'))
         .pipe(reload({stream: true}));
 });
@@ -69,7 +69,7 @@ gulp.task('vue-js', () => {
             console.log('***** BROWSERIFY ERROR: ' + err.message);
             // this.emit('end');
         })
-        .pipe(source('lk-build.js'))
+        .pipe(source('spa.js'))
         .pipe(buffer())
         .pipe($.uglify())
         .pipe(gulp.dest('./dist/js'))

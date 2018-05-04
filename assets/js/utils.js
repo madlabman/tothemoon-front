@@ -209,6 +209,7 @@ function initPriceChart() {
         .duration(750)
         .ease(d3.easeLinear);
 
+    d3.selectAll('.day-change__chart svg').remove();
     let price_chart = d3.select('.day-change__chart').append('svg')
         .attr('class', 'day-change__svg')
         .attr('width', width)
@@ -483,20 +484,3 @@ function animateCounter() {
         });
     });
 }
-
-$(document).ready(function() {
-    // Init
-    initGradients();
-    buttonsBorder();
-    stepsBorder();
-    stepsLines();
-    initReplySlider();
-    smoothScroll();
-    initPriceChart();
-    initCapitalizationChart();
-    initScrollSpy();
-
-    AOS.init();
-
-    $(window).resize(() => { stepsLines(); })
-});

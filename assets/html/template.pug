@@ -41,8 +41,10 @@ head
             .container.container_with-sidebar
                 aside.side-nav
                     block aside
+
             block content
 
-        // Scripts
-        script(src='vendor.js')
-        script(src='js/build.js')
+            block scripts
+                // Scripts
+                script(src='vendor.js')
+                script(src='js/utils.js')
