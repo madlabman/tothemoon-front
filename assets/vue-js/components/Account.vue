@@ -1,7 +1,7 @@
 <template lang="jade">
     .account(v-show='$auth.check()')
         // Мой счет
-        h2.lk-block__title Мой счет @ {{ $auth.user().username }}
+        h2.lk-block__title Мой счет @ {{ $auth.user().login }}
         // Баланс
         .balance
             .balance__act
@@ -11,7 +11,7 @@
                 button.balance__button.balance__button_withdraw
                     span.balance__button__sign -
                     | Вывести деньги
-            .balance__stat
+            .balance__stat(@click='getBalance()')
                 .balance__stat__item.balance__stat__item_usd {{ data.balance.usd }}
                 .balance__stat__item.balance__stat__item_btc {{ data.balance.btc }}
                 .balance__stat__item.balance__stat__item_rub {{ data.balance.rub }}
@@ -68,20 +68,18 @@
                 }
             }
         },
-        created() {
+        mounted() {
             this.$auth.fetch();
             this.getBalance();
+        },
+        updated() {
+            if (typeof initPriceChart === "function") initPriceChart();
         },
         methods: {
             getBalance() {
                 let app = this;
                 app.axios.get(
-                    '/users/balance',
-                    {
-                        headers: {
-                            'Authorization': app.$auth.token()
-                        }
-                    }
+                    '/user/balance',
                 ).then((response) => {
                     let data = response.data;
                     if (data.status === 'success') {

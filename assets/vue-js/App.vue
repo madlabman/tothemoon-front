@@ -3,7 +3,7 @@
         section.page-block.lk-block.page-block_bordered
             .container.container_with-sidebar
                 // Навигационное меню
-                aside.lk-menu(v-if='$auth.ready() && loaded && $auth.check()')
+                aside.lk-menu(v-if='$auth.check()')
                     h2.lk-menu__title.lk-block__title Личный кабинет
                     nav.lk-menu__main-nav
                         ul.lk-menu__main-nav__list
@@ -28,16 +28,21 @@
     export default {
         data() {
             return {
-                loaded: false
+                loaded: false,
             }
         },
         mounted() {
             let app = this;
-
             // Set up $auth.ready with other arbitrary loaders (ex: language file).
             setTimeout(function () {
                 app.loaded = true;
             }, 500);
+        },
+        updated() {
+            this.$auth.check();
+            if (typeof initGradients === 'function') initGradients();
+            if (typeof buttonsBorder === "function") buttonsBorder();
+            if (typeof AOS === 'object') AOS.init();
         },
         methods: {
             logout() {
@@ -48,6 +53,7 @@
                         app.$router.push({ name: 'login', query: { redirect: '/login' } });
                     },
                     error() {
+                        // TODO: handle error
                         console.log('Error in logout...');
                     }
                 });
