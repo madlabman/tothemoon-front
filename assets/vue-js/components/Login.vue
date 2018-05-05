@@ -44,6 +44,7 @@
                     fetchUser: this.data.fetchUser
                 })
                     .then((response) => {
+                        console.log(response);
                         let data = response.data;
                         if (data.status === 'error') {
                             app.errors = data.errors;

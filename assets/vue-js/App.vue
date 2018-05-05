@@ -22,6 +22,7 @@
                 // Область страницы
                 main.lk-page
                     router-view
+        notifications(group='lk' position='bottom right')
 </template>
 
 <script>

@@ -5,15 +5,17 @@ import VueRouter from 'vue-router'
 import VueAuth from '@websanova/vue-auth'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Notifications from 'vue-notification';
 
 import App from './App.vue';
 import Account from './components/Account.vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
 
+Vue.use(Notifications);
 Vue.use(VueRouter);
-
 Vue.use(VueAxios, axios);
+
 Vue.axios.defaults.baseURL = 'http://localhost:8000/api/v1';
 
 // Routes
@@ -64,7 +66,7 @@ Vue.axios.interceptors.response.use(function(response) {
     return response;
 }, function (error) {
     if (
-        error.response.statusCode() === 401 &&
+        error.response.status === 401 &&
         ['UnauthorizedAccess', 'InvalidToken'].indexOf(error.response.data.code) > -1
     ) {
         window.localStorage.clear();
@@ -73,12 +75,18 @@ Vue.axios.interceptors.response.use(function(response) {
                 name: 'login'
             }
         });
-    } else if (error.response.statusCode() === 500) {
-        Vue.router.push({
-            name: 'error-500'
+    } else if (error.response.status === 500) {
+        // Vue.router.push({
+        //     name: 'error-500'
+        // });
+        Vue.prototype.$notify({
+            group: 'lk',
+            title: 'Ошибка сервера',
+            text: 'Произошла ошибка, повторите попытку позднее.',
+            type: 'error'
         });
     } else {
-        return error;
+        return error.response;
     }
 });
 
