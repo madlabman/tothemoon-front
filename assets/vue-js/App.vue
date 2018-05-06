@@ -1,49 +1,51 @@
 <template lang="jade">
     .lk
-        section.page-block.lk-block.page-block_bordered
+        // Header
+        app-header
+        // Content
+        main.page-content
             .container.container_with-sidebar
-                // Навигационное меню
-                aside.lk-menu(v-if='$auth.check()')
-                    h2.lk-menu__title.lk-block__title Личный кабинет
-                    nav.lk-menu__main-nav
-                        ul.lk-menu__main-nav__list
-                            li.lk-menu__main-nav__item
-                                router-link(to='/account') Мой счет
-                            li.lk-menu__main-nav__item
-                                a.lk-menu__main-nav__link(href='#') Партнерская программа
-                            li.lk-menu__main-nav__item
-                                a.lk-menu__main-nav__link(href='#') Полезные материалы
-                    nav.lk-menu__bottom-nav
-                        ul.lk-menu__bottom-nav__list
-                            li.lk-menu__bottom-nav__item.lk-menu__bottom-nav__item_settings
-                                a.lk-menu__bottom-nav__link(href='#') Настройки
-                            li.lk-menu__bottom-nav__item.lk-menu__bottom-nav__item_logout
-                                a.lk-menu__bottom-nav__link(v-on:click='logout()' href='javascript:void(0);') Выход
-                // Область страницы
-                main.lk-page
-                    router-view
-        notifications(group='lk' position='bottom right')
+                aside.side-nav
+            section.page-block.lk-block.page-block_bordered
+                .container.container_with-sidebar
+                    app-nav
+                    // Область страницы
+                    main.lk-page
+                        router-view
+            // Уведомления
+            notifications(group='lk' position='bottom right')
+        // Footer
+        app-footer
+
 </template>
 
 <script>
+    import Header from "./components/layout/Header.vue";
+    import Footer from "./components/layout/Footer.vue";
+    import Nav from "./components/layout/Nav.vue"
+
     export default {
+        components: {
+            'app-header': Header,
+            'app-footer': Footer,
+            'app-nav': Nav,
+        },
         data() {
             return {
                 loaded: false,
             }
         },
         mounted() {
+            initGradients();
             let app = this;
             // Set up $auth.ready with other arbitrary loaders (ex: language file).
             setTimeout(function () {
                 app.loaded = true;
-            }, 500);
+            }, 100);
         },
         updated() {
             this.$auth.check();
-            if (typeof initGradients === 'function') initGradients();
-            if (typeof buttonsBorder === "function") buttonsBorder();
-            if (typeof AOS === 'object') AOS.init();
+            // this.$initVendorJS();
         },
         methods: {
             logout() {
@@ -51,14 +53,19 @@
                 this.$auth.logout({
                     makeRequest: true,
                     success() {
-                        app.$router.push({ name: 'login', query: { redirect: '/login' } });
+                        app.$router.push({
+                            name: 'login',
+                            query: {
+                                redirect: '/login'
+                            }
+                        });
                     },
                     error() {
                         // TODO: handle error
                         console.log('Error in logout...');
                     }
                 });
-            },
+            }
         }
     }
 </script>

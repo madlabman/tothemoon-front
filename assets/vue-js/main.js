@@ -1,17 +1,19 @@
-"use strict"
+"use strict";
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueAuth from '@websanova/vue-auth'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import Notifications from 'vue-notification';
+import VModal from 'vue-js-modal'
+import Notifications from 'vue-notification'
 
-import App from './App.vue';
+import App from './App.vue'
 import Account from './components/Account.vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
 
+Vue.use(VModal);
 Vue.use(Notifications);
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -24,23 +26,33 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login,
-        meta: {auth: false}
+        meta: {
+            auth: false
+        }
     },
     {
         path: '/register',
         name: 'register',
         component: Register,
-        meta: {auth: false}
+        meta: {
+            auth: false
+        }
     },
     {
         path: '/account',
         name: 'account',
         component: Account,
-        meta: {auth: true}
+        meta: {
+            auth: true
+        }
     },
     {
-        path: '*',
+        path: '/',
+        name: 'default',
         redirect: '/account',
+        meta: {
+            auth: true
+        }
     },
 ];
 
@@ -62,32 +74,52 @@ Vue.use(VueAuth, {
 });
 
 // Handle errors
-Vue.axios.interceptors.response.use(function(response) {
-    return response;
-}, function (error) {
-    if (
-        error.response.status === 401 &&
-        ['UnauthorizedAccess', 'InvalidToken'].indexOf(error.response.data.code) > -1
-    ) {
-        window.localStorage.clear();
-        Vue.auth.logout({
-            redirect: {
-                name: 'login'
+
+Vue.axios.interceptors.response.use(
+
+    (response) => { return response },
+
+    (error) => {
+        // Error
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            // console.log(error.response.data);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+            if (
+                error.response.status === 401 &&
+                ['UnauthorizedAccess', 'InvalidToken'].indexOf(error.response.data.code) > -1
+            ) {
+                window.localStorage.clear();
+                Vue.auth.logout({
+                    redirect: {
+                        name: 'login'
+                    }
+                });
+            } else if (error.response.status === 500) {
+                // Vue.router.push({
+                //     name: 'error-500'
+                // });
+                Vue.prototype.$notify({
+                    group: 'lk',
+                    title: 'Ошибка сервера',
+                    text: 'Произошла ошибка, повторите попытку позднее.',
+                    type: 'error'
+                });
             }
-        });
-    } else if (error.response.status === 500) {
-        // Vue.router.push({
-        //     name: 'error-500'
-        // });
-        Vue.prototype.$notify({
-            group: 'lk',
-            title: 'Ошибка сервера',
-            text: 'Произошла ошибка, повторите попытку позднее.',
-            type: 'error'
-        });
-    } else {
-        return error.response;
-    }
+        } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+            Vue.prototype.$notify({
+                group: 'lk',
+                title: 'Ошибка сервера',
+                text: 'Произошла ошибка, повторите попытку позднее.',
+                type: 'error'
+            });
+        }
 });
 
 // Mount app

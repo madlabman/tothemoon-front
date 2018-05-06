@@ -4,11 +4,15 @@
         h2.lk-block__title Мой счет @ {{ $auth.user().login }}
         // Баланс
         .balance
+            modal(name='payment')
+                payment-form
+            modal(name='withdraw')
+                withdraw-form
             .balance__act
-                button.balance__button.balance__button_pay
+                button.balance__button.balance__button_pay(@click='showPayment')
                     span.balance__button__sign +
                     | Пополнить счет
-                button.balance__button.balance__button_withdraw
+                button.balance__button.balance__button_withdraw(@click='showWithdraw')
                     span.balance__button__sign -
                     | Вывести деньги
             .balance__stat(@click='getBalance()')
@@ -56,7 +60,16 @@
 </template>
 
 <script>
+    import Payment from './account/Payment.vue'
+    import Withdraw from './account/Withdraw.vue'
+
     export default {
+
+        components : {
+            'payment-form': Payment,
+            'withdraw-form': Withdraw,
+        },
+
         data() {
             return {
                 data: {
@@ -68,14 +81,14 @@
                 }
             }
         },
+
         mounted() {
             this.$auth.fetch();
             this.getBalance();
         },
-        updated() {
-            if (typeof initPriceChart === "function") initPriceChart();
-        },
+
         methods: {
+
             getBalance() {
                 let app = this;
                 app.axios.get(
@@ -87,6 +100,15 @@
                     }
                 })
             },
+
+            showPayment() {
+                this.$modal.show('payment');
+            },
+
+            showWithdraw() {
+                this.$modal.show('withdraw');
+            },
+
         }
     }
 </script>

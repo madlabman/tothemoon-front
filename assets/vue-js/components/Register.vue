@@ -26,7 +26,12 @@
 </template>
 
 <script>
+    import Button from './page/Button.vue'
+
     export default {
+        components: {
+            'app-button': Button
+        },
         data() {
             return {
                 data: {
@@ -49,8 +54,6 @@
         methods: {
             register() {
                 let self = this;
-                // let form_data = new FormData();
-                // Object.entries(self.data.body).forEach((k) => form_data.append(k[0], k[1]));
                 self.axios({
                     method: 'post',
                     url: '/auth/register',
@@ -58,7 +61,12 @@
                 }).then(function (response) {
                     let data = response.data;
                     if (data.status !== 'error') {
-                        self.$router.push({ name: 'login', query: { redirect: '/login' } });
+                        self.$router.push({
+                            name: 'login',
+                            query: {
+                                redirect: '/login'
+                            }
+                        });
                     } else {
                         self.errors = data.errors;
                     }

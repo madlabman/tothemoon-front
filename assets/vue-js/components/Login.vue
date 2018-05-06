@@ -12,12 +12,17 @@
             div(v-for='error in errors.password')
                 p.contact-form__error {{ error }}
 
-            button.button.button_grad-border(type='submit') Вход
+            app-button(text='Вход')
 
 </template>
 
 <script>
+    import Button from './page/Button.vue'
+
     export default {
+        components: {
+            'app-button': Button
+        },
         data() {
             return {
                 data: {

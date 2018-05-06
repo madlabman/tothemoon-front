@@ -1,37 +1,24 @@
-extends template
+doctype html
 
-block title
-    | ToTheMoon | Личный кабинет
+html(class='no-js')
 
-block content
+head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
 
-    div#lk
+    title ToTheMoon | Личный кабинет
 
-    footer.footer
-        .container.container_with-sidebar
-            .footer__container
-                a.logo(href='#')
-                    img.logo__img(src='img/logo.png')
-                    p.logo__title
-                        | TOTHEMOON
-                        span.logo__title__fund FUND
-                        span.logo__title__copyright &copy; 2018 tothemoon fund
-                .footer__contact
-                    p.contact-address г. Астрахань, ул. Полевая 86, офис 854
-                    p.contact-mail tothemoon@mail.ru
-                .footer__sign
-                    div.footer__sign__wrapper
-                        button.button.button_grad-border Вход
-                        button.button.button_grad-border Регистрация
-                    .footer__sign__bottom
-                        .icon-block
-                            i.icon.icon_instagram
-                            i.icon.icon_fb
-                            i.icon.icon_vk
-                            i.icon.icon_twitter
-                            i.icon.icon_tg
-                        a.contact-phone.contact-phone_with-icon(href='tel:88002000600') 8 800 2000 600
+    meta(name='description' content='')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
 
-append scripts
+    link(rel='stylesheet' href='vendor.css')
+    link(rel='stylesheet' href='css/style.css')
+
+    body
+        div#lk
+
+    // JS
+    script(src='vendor.js')
+    script(src='js/utils.js')
     // Скрипт личного кабинета
     script(src='js/spa.js')
