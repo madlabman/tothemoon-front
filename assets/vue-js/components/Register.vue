@@ -21,7 +21,7 @@
                 p.contact-form__error {{ error }}
 
             input.contact-form__input(type='text' placeholder='Промокод' v-model='data.body.promo')
-            button.button.button_grad-border(type='submit') Регистрация
+            app-button(text='Регистрация')
 
 </template>
 
@@ -29,9 +29,11 @@
     import Button from './page/Button.vue'
 
     export default {
+
         components: {
             'app-button': Button
         },
+
         data() {
             return {
                 data: {
@@ -51,7 +53,9 @@
                 }
             }
         },
+
         methods: {
+
             register() {
                 let self = this;
                 self.axios({
@@ -75,6 +79,8 @@
                     console.error(response);
                 })
             }
-        }
+
+        },
+
     }
 </script>

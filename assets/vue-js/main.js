@@ -7,16 +7,21 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VModal from 'vue-js-modal'
 import Notifications from 'vue-notification'
+import VueClipboard from 'vue-clipboard2'
 
 import App from './App.vue'
 import Account from './components/Account.vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
+import Settings from './components/Settings.vue'
+import Signal from './components/Signal.vue'
+import Referral from './components/Referral.vue'
 
 Vue.use(VModal);
 Vue.use(Notifications);
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
+Vue.use(VueClipboard);
 
 Vue.axios.defaults.baseURL = 'http://localhost:8000/api/v1';
 
@@ -47,6 +52,30 @@ const routes = [
         }
     },
     {
+        path: '/signals',
+        name: 'signals',
+        component: Signal,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: '/referral',
+        name: 'referral',
+        component: Referral,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: '/settings',
+        name: 'settings',
+        component: Settings,
+        meta: {
+            auth: true
+        }
+    },
+    {
         path: '/',
         name: 'default',
         redirect: '/account',
@@ -59,6 +88,15 @@ const routes = [
 Vue.router = new VueRouter({
     routes // сокращение от `routes: routes`
 });
+
+Vue.prototype.$notifyServerError = function(group) {
+    Vue.prototype.$notify({
+        group,
+        type: 'error',
+        title: 'Ошибка сервера',
+        text: 'Произошла ошибка, повторите попытку позднее.'
+    })
+};
 
 Vue.use(VueAuth, {
     auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
@@ -101,24 +139,13 @@ Vue.axios.interceptors.response.use(
                 // Vue.router.push({
                 //     name: 'error-500'
                 // });
-                Vue.prototype.$notify({
-                    group: 'lk',
-                    title: 'Ошибка сервера',
-                    text: 'Произошла ошибка, повторите попытку позднее.',
-                    type: 'error'
-                });
+                Vue.prototype.$notifyServerError('lk');
             }
         } else if (error.request) {
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
             // http.ClientRequest in node.js
-            console.log(error.request);
-            Vue.prototype.$notify({
-                group: 'lk',
-                title: 'Ошибка сервера',
-                text: 'Произошла ошибка, повторите попытку позднее.',
-                type: 'error'
-            });
+            Vue.prototype.$notifyServerError('lk');
         }
 });
 

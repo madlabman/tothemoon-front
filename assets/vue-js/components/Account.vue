@@ -1,7 +1,7 @@
 <template lang="jade">
-    .account(v-show='$auth.check()')
+    .account
         // Мой счет
-        h2.lk-block__title Мой счет @ {{ $auth.user().login }}
+        h2.lk-block__title Мой счет
         // Баланс
         .balance
             modal(name='payment')
@@ -15,18 +15,20 @@
                 button.balance__button.balance__button_withdraw(@click='showWithdraw')
                     span.balance__button__sign -
                     | Вывести деньги
-            .balance__stat(@click='getBalance()')
-                .balance__stat__item.balance__stat__item_usd {{ data.balance.usd }}
-                .balance__stat__item.balance__stat__item_btc {{ data.balance.btc }}
-                .balance__stat__item.balance__stat__item_rub {{ data.balance.rub }}
+            .balance__stat(@click='getBalance')
+                .balance__stat__item.balance__stat__item_usd {{ balance.usd }}
+                .balance__stat__item.balance__stat__item_btc {{ balance.btc }}
+                .balance__stat__item.balance__stat__item_rub {{ balance.rub }}
         // Статистика
         .stat
             .stat__title Ваша прибыль
             .stat__menu
-                .stat__select
-                    a.stat__select__item.stat__select__item_active BTC
-                    a.stat__select__item $
-                    a.stat__select__item P
+                .stat__select(v-for='currency in currency_list')
+                    a.stat__select__item(
+                        v-bind:class='{ "stat__select__item_active": currency.isActive }'
+                        v-on:click='changeActiveCurrencyTo(currency)'
+                        ) {{ currency.name }}
+                .stat__spacer
                 .stat__select
                     a.stat__select__item График
                     a.stat__select__item.stat__select__item_active Таблица
@@ -34,13 +36,18 @@
                 table.stat__table
                     thead
                         tr
-                            td(rowspan=2) Дата
-                            td(colspan=2) Прибыль за день
+                            th(rowspan=2) Дата
+                            th(colspan=2) Прибыль за день
                             td(rowspan=2) Баланс
                         tr
-                            td %
-                            td BTC
+                            th %
+                            th BTC
                     tbody
+                        tr
+                            td 6.08.2018
+                            td +1,2
+                            td +0,02
+                            td 123,45
                         tr
                             td 6.08.2018
                             td +1,2
@@ -48,15 +55,15 @@
                             td 123,45
             a.stat__report-link(href='#') Запросить отчет по операциям
         // График курса
-        .plot__title График курса криптовалюты
-            .plot__select
-                .plot__select_active
-                    .plot__select__item BTC
-                .plot__select__dropdown
-                    .plot__select__dropdown__item BTC
-                    .plot__select__dropdown__item BCH
-                    .plot__select__dropdown__item LTC
-        .day-change__chart
+        //.plot__title График курса криптовалюты
+        //    .plot__select
+        //        .plot__select_active
+        //            .plot__select__item BTC
+        //        .plot__select__dropdown
+        //            .plot__select__dropdown__item BTC
+        //            .plot__select__dropdown__item BCH
+        //            .plot__select__dropdown__item LTC
+        //.day-change__chart
 </template>
 
 <script>
@@ -72,13 +79,28 @@
 
         data() {
             return {
-                data: {
-                    balance: {
-                        btc: 0,
-                        usd: 0,
-                        rub: 0
-                    }
-                }
+
+                balance: {
+                    btc: 0,
+                    usd: 0,
+                    rub: 0
+                },
+
+                currency_list: [
+                    {
+                        name: 'BTC',
+                        isActive: true,
+                    },
+                    {
+                        name: '$',
+                        isActive: false,
+                    },
+                    {
+                        name: 'P',
+                        isActive: false,
+                    },
+                ],
+
             }
         },
 
@@ -90,13 +112,13 @@
         methods: {
 
             getBalance() {
-                let app = this;
-                app.axios.get(
+                let self = this;
+                self.axios.get(
                     '/user/balance',
                 ).then((response) => {
                     let data = response.data;
                     if (data.status === 'success') {
-                        app.data.balance = data.balance;
+                        self.balance = data.balance;
                     }
                 })
             },
@@ -107,6 +129,12 @@
 
             showWithdraw() {
                 this.$modal.show('withdraw');
+            },
+
+            changeActiveCurrencyTo(item) {
+                this.currency_list.forEach((elem) => {
+                    elem.isActive = (elem.name === item.name);
+                })
             },
 
         }

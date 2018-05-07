@@ -1,8 +1,8 @@
 <template lang="jade">
-    header.header.header_fixed
+    header.header.lk__header
         .container
             .header__container
-                .header__sandwich-container
+                //.header__sandwich-container
                     .header__sandwich
                         span.header__sandwich__line
                         span.header__sandwich__line
@@ -17,12 +17,20 @@
                     .header__contact
                         a.contact-mail(href='mailto:tothemoon@mail.ru') tothemoon@mail.ru
                         a.contact-phone(href='tel:88002000600') 8 800 2000 600
-                    .header__sign(v-show='!$auth.check()')
+                    .header__sign(v-if='!$auth.check()')
                         router-link(to='/login')
                             app-button(text='Вход')
                         router-link(to='/register')
                             app-button(text='Регистрация')
+                    p(v-else-if='$auth.check()')
+                        | Здравствуйте, {{ $auth.user().name }}
 </template>
+
+<style lang="scss" scoped>
+    .header__block_left {
+        padding-left: 152px;
+    }
+</style>
 
 <script>
     import Button from './../page/Button.vue'

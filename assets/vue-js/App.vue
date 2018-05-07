@@ -4,8 +4,6 @@
         app-header
         // Content
         main.page-content
-            .container.container_with-sidebar
-                aside.side-nav
             section.page-block.lk-block.page-block_bordered
                 .container.container_with-sidebar
                     app-nav
@@ -13,7 +11,7 @@
                     main.lk-page
                         router-view
             // Уведомления
-            notifications(group='lk' position='bottom right')
+            notifications(group='lk' position='bottom left')
         // Footer
         app-footer
 

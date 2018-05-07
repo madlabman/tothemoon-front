@@ -1,2 +1,87 @@
 .stat
 
+  &__title
+    margin-bottom: 15px
+    @include font-size(24)
+    color: #00fff3
+
+  &__menu
+    display: flex
+
+  &__spacer
+    width: 90px
+
+  &__select
+    display: flex
+    flex-direction: row
+    padding-bottom: 10px
+    margin-bottom: 28px
+
+    &__item
+      position: relative
+      padding: 9px 11px
+      font-family: 'PT Sans Caption', sans-serif
+      @include font-size(14)
+      color: #fff
+      line-height: 1
+      border-radius: 20px
+      cursor: pointer
+      &:not(:last-child)
+        margin-right: 10px
+
+      &_active
+        background-color: rgba(229, 229, 229, 0.2)
+        &:after
+          content: ''
+          display: block
+          position: absolute
+          left: 0
+          bottom: -9px
+          width: 100%
+          height: 1px
+          background-color: #e5e5e5
+
+  &__table
+    margin-bottom: 28px
+    width: 100%
+    table-layout: fixed
+    background-color: #151515
+    border-collapse: collapse
+    border-spacing: 0
+    border: 1px solid #000
+    font-family: 'PT Sans Caption', sans-serif
+    @include font-size(14)
+    tr
+      &:first-child
+        td, th
+          border-top: none
+      &:last-child
+        td
+          border-bottom: none
+        th
+          padding-left: 20px
+          text-align: left
+          color: #00f8eb
+          @include font-size(16)
+          font-weight: 500
+    td, th
+      padding: 7px 0
+      vertical-align: middle
+      //border: 1px solid rgba(255, 255, 255, 0.2)
+      border: 1px solid #444
+      &:first-child
+        border-left: none
+      &:last-child
+        border-right: none
+    thead
+      td, th
+        text-align: center
+    tbody
+      td
+        padding-left: 20px
+
+  &__report-link
+    display: inline-block
+    padding-bottom: 10px
+    @include font-size(16)
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4)
