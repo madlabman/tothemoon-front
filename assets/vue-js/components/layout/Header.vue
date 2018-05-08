@@ -8,7 +8,7 @@
                         span.header__sandwich__line
                         span.header__sandwich__line
                 .header__block_left
-                    a.logo(href='#')
+                    a.logo(href='/')
                         img.logo__img(src='img/logo.png')
                         p.logo__title
                             | TOTHEMOON
