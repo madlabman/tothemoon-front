@@ -4,17 +4,17 @@
         .settings__block
             p.settings__title Профиль
             form(v-on:submit.prevent='updateProfile')
-                input.contact-form__input(placeholder='Имя' v-model='profile.name')
+                input.input(placeholder='Имя' v-model='profile.name' v-bind:class='{ "input_error": "errors.name" }')
                 div(v-for='error in errors.name')
-                    p.contact-form__error {{ error }}
+                    p.input__error {{ error }}
                 app-button(text='Обновить профиль')
         .settings__block
             p.settings__title Изменить пароль
             form(v-on:submit.prevent='updatePassword')
-                input.contact-form__input(placeholder='Текущий пароль' type='password' v-model='password.old')
+                input.input(placeholder='Текущий пароль' type='password' v-model='password.old')
                 div(v-for='error in errors.old')
                     p.contact-form__error {{ error }}
-                input.contact-form__input(placeholder='Новый пароль' type='password' v-model='password.new')
+                input.input(placeholder='Новый пароль' type='password' v-model='password.new')
                 div(v-for='error in errors.new')
                     p.contact-form__error {{ error }}
                 app-button(text='Обновить пароль')

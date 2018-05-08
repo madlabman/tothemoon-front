@@ -1,0 +1,21 @@
+.input
+  display: block
+  margin-bottom: 10px
+  padding: 12px 0 12px 3px
+  border: none
+  background-color: transparent
+  border-bottom: 1px solid #0bc9c8
+  color: #fff
+  @include font-size(12)
+  font-weight: 500
+  +placeholder
+    color: #fff
+    opacity: 1
+
+  &_error
+    border-bottom: 1px solid #c91479
+
+  &__error
+    margin-bottom: 10px
+    @include font-size(12)
+    opacity: 0.8
