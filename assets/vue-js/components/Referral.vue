@@ -10,7 +10,8 @@
                     )
                     | {{ $auth.user().promo_code }}
         .referral__block(v-if='leader')
-            p.referral__leader Вы пришли по ссылке пользователя с номером {{ leader.phone }}
+            p.referral__leader Вы пришли по ссылке пользователя по имени
+                span.referral__label {{ leader.name }}
         .referral__block(v-if='ref_count')
             p.referral__leader Вы привели пользователей:
                 span.referral__label {{ ref_count }}

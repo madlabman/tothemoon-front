@@ -8,7 +8,14 @@
             div(v-for='error in errors.name')
                 p.contact-form__error {{ error }}
 
-            input.contact-form__input(type='text' placeholder='Телефон' v-model='data.body.phone' required=true v-bind:class='{ "contact-form__input_error": errors.phone }')
+            input.contact-form__input(
+                type='text'
+                placeholder='Телефон'
+                v-model='data.body.phone'
+                required=true
+                v-bind:class='{ "contact-form__input_error": errors.phone }'
+                v-mask="'+7 (999) 999-99-99'"
+                )
             div(v-for='error in errors.phone')
                 p.contact-form__error {{ error }}
 

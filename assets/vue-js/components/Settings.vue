@@ -11,10 +11,10 @@
         .settings__block
             p.settings__title Изменить пароль
             form(v-on:submit.prevent='updatePassword')
-                input.contact-form__input(placeholder='Текущий пароль' type='password')
+                input.contact-form__input(placeholder='Текущий пароль' type='password' v-model='password.old')
                 div(v-for='error in errors.old')
                     p.contact-form__error {{ error }}
-                input.contact-form__input(placeholder='Новый пароль' type='password')
+                input.contact-form__input(placeholder='Новый пароль' type='password' v-model='password.new')
                 div(v-for='error in errors.new')
                     p.contact-form__error {{ error }}
                 app-button(text='Обновить пароль')
@@ -51,11 +51,42 @@
         methods: {
 
             updateProfile: function() {
-
+                let self = this;
+                self.axios.post('/user/update', self.profile)
+                    .then((response) => {
+                        if (response.data.status && response.data.status === 'success') {
+                            self.errors.name = null;
+                            self.$notifySuccess('lk', '', 'Данные профиля успешно обновлены!');
+                            self.$auth.fetch();
+                        } else if(response.data.errors) {
+                            self.errors = response.data.errors;
+                        } else {
+                            self.$notifyServerError('lk');
+                        }
+                    })
             },
 
             updatePassword: function () {
-
+                let self = this;
+                self.axios.post('/user/password', self.password)
+                    .then((response) => {
+                        if (response.data.status && response.data.status === 'success') {
+                            // clear error
+                            self.errors.old = null;
+                            self.errors.new = null;
+                            // reset form data
+                            self.password = {
+                                old: null,
+                                new: null,
+                            };
+                            //notify user
+                            self.$notifySuccess('lk', '', 'Пароль изменен!');
+                        } else if(response.data.errors) {
+                            self.errors = response.data.errors;
+                        } else {
+                            self.$notifyServerError('lk');
+                        }
+                    })
             },
 
         },

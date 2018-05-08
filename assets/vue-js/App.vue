@@ -60,7 +60,7 @@
                     },
                     error() {
                         // TODO: handle error
-                        console.log('Error in logout...');
+                        this.$notifyServerError('lk');
                     }
                 });
             }

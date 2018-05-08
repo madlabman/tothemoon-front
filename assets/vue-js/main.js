@@ -9,6 +9,8 @@ import VModal from 'vue-js-modal'
 import Notifications from 'vue-notification'
 import VueClipboard from 'vue-clipboard2'
 
+const VueInputMask = require('vue-inputmask').default
+
 import App from './App.vue'
 import Account from './components/Account.vue'
 import Login from './components/Login.vue'
@@ -22,6 +24,7 @@ Vue.use(Notifications);
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 Vue.use(VueClipboard);
+Vue.use(VueInputMask);
 
 Vue.axios.defaults.baseURL = 'http://localhost:8000/api/v1';
 
@@ -95,6 +98,14 @@ Vue.prototype.$notifyServerError = function(group) {
         type: 'error',
         title: 'Ошибка сервера',
         text: 'Произошла ошибка, повторите попытку позднее.'
+    })
+};
+
+Vue.prototype.$notifySuccess = function(group, title, text) {
+    Vue.prototype.$notify({
+        group,
+        title,
+        text
     })
 };
 
