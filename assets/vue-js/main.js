@@ -14,6 +14,7 @@ const VueInputMask = require('vue-inputmask').default
 import App from './App.vue'
 import Account from './components/Account.vue'
 import Login from './components/Login.vue'
+import Messages from './components/Messages.vue'
 import Register from './components/Register.vue'
 import Settings from './components/Settings.vue'
 import Signal from './components/Signal.vue'
@@ -74,6 +75,14 @@ const routes = [
         path: '/settings',
         name: 'settings',
         component: Settings,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: '/messages',
+        name: 'messages',
+        component: Messages,
         meta: {
             auth: true
         }

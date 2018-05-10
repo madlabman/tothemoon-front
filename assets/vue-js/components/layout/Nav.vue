@@ -11,6 +11,8 @@
                 li.lk-menu__main-nav__item
                     router-link(to='/referral') Партнерская программа
                 li.lk-menu__main-nav__item
+                    router-link(to='/messages') Сообщения
+                li.lk-menu__main-nav__item
                     a.lk-menu__main-nav__link(href='#') Полезные материалы
         nav.lk-menu__bottom-nav
             ul.lk-menu__bottom-nav__list
