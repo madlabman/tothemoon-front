@@ -55,7 +55,7 @@
                             td 123,45
             a.stat__report-link(href='#') Запросить отчет по операциям
         // График курса
-        //.plot__title График курса криптовалюты
+        .plot__title График курса криптовалюты
         //    .plot__select
         //        .plot__select_active
         //            .plot__select__item BTC
@@ -63,18 +63,20 @@
         //            .plot__select__dropdown__item BTC
         //            .plot__select__dropdown__item BCH
         //            .plot__select__dropdown__item LTC
-        //.day-change__chart
+        price-chart
 </template>
 
 <script>
     import Payment from './account/Payment.vue'
     import Withdraw from './account/Withdraw.vue'
+    import PriceChart from './page/PriceChart.vue'
 
     export default {
 
         components : {
             'payment-form': Payment,
             'withdraw-form': Withdraw,
+            'price-chart': PriceChart,
         },
 
         data() {

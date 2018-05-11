@@ -12,6 +12,7 @@
                     router-link(to='/referral') Партнерская программа
                 li.lk-menu__main-nav__item
                     router-link(to='/messages') Сообщения
+                    span(v-if='unread_count > 0').badge.badge_small +{{ unread_count }}
                 li.lk-menu__main-nav__item
                     a.lk-menu__main-nav__link(href='#') Полезные материалы
         nav.lk-menu__bottom-nav
@@ -24,10 +25,34 @@
 
 <script>
     export default {
+
+        data() {
+             return {
+                 unread_count: 0,
+             }
+        },
+
+        created() {
+            this.checkUnread();
+        },
+
         methods: {
+
             logout() {
                 this.$parent.logout();
-            }
+            },
+
+            checkUnread() {
+                let self = this;
+                self.axios.get('/user/chat/unread_count')
+                    .then((response) => {
+                        if (response.data.status && response.data.status === 'success' && response.data.count) {
+                            self.unread_count = response.data.count;
+                        }
+                    })
+            },
+
         }
+
     }
 </script>
