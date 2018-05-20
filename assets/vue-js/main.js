@@ -20,6 +20,8 @@ import Settings from './components/Settings.vue'
 import Signal from './components/Signal.vue'
 import Referral from './components/Referral.vue'
 
+import moment from 'moment'
+
 Vue.use(VModal);
 Vue.use(Notifications);
 Vue.use(VueRouter);
@@ -167,6 +169,13 @@ Vue.axios.interceptors.response.use(
             // http.ClientRequest in node.js
             Vue.prototype.$notifyServerError('lk');
         }
+});
+
+// Time formatter
+Vue.filter('formatDate', function(value) {
+    if (value) {
+        return moment(String(value)).format('DD.MM.YYYY')
+    }
 });
 
 // Mount app

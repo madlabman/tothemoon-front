@@ -5,7 +5,7 @@
             li.signals__item(v-for='signal in signals')
                 p.signals__item__date
                     span.signals__item__type(v-bind:class='getTypeClass(signal.level)')
-                    | {{ signal.created_at }}
+                    | {{ signal.created_at | formatDate }}
                 .signal__item__infov(v-html='signal.info')
 </template>
 
@@ -35,7 +35,7 @@
 
             getSignals: function () {
                 let self = this;
-                self.axios.get('/signal/all')
+                self.axios.get('/signal')
                     .then((response) => {
                         if (response.data.status && response.data.status === 'success') {
                             self.signals = response.data.signals;
