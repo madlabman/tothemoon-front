@@ -25,34 +25,19 @@
             .stat__menu
                 .stat__select(v-for='currency in currency_list')
                     a.stat__select__item(
-                        v-bind:class='{ "stat__select__item_active": currency.isActive }'
-                        v-on:click='changeActiveCurrencyTo(currency)'
-                        ) {{ currency.name }}
+                    v-bind:class='{ "stat__select__item_active": currency.isActive }'
+                    v-on:click='changeActiveCurrencyTo(currency)'
+                    ) {{ currency.name }}
                 .stat__spacer
-                .stat__select
-                    a.stat__select__item График
-                    a.stat__select__item.stat__select__item_active Таблица
+                .stat__select(v-for='view in profit_views')
+                    a.stat__select__item(
+                    v-bind:class='{ "stat__select__item_active": view.isActive }'
+                    v-on:click='changeActiveProfitViewTo(view)'
+                    ) {{ view.name }}
+                    <!--a.stat__select__item График-->
+                    <!--a.stat__select__item.stat__select__item_active Таблица-->
             .stat__view
-                table.stat__table
-                    thead
-                        tr
-                            th(rowspan=2) Дата
-                            th(colspan=2) Прибыль за день
-                            td(rowspan=2) Баланс
-                        tr
-                            th %
-                            th BTC
-                    tbody
-                        tr
-                            td 6.08.2018
-                            td +1,2
-                            td +0,02
-                            td 123,45
-                        tr
-                            td 6.08.2018
-                            td +1,2
-                            td +0,02
-                            td 123,45
+                component(v-bind:profits='profits' v-bind:is='profitComponent')
             a.stat__report-link(href='#') Запросить отчет по операциям
         // График курса
         .plot__title График курса криптовалюты
@@ -70,13 +55,19 @@
     import Payment from './account/Payment.vue'
     import Withdraw from './account/Withdraw.vue'
     import PriceChart from './page/PriceChart.vue'
+    import ProfitTable from './account/ProfitTable.vue'
+    import ProfitChart from './account/ProfitChart.vue'
 
     export default {
 
-        components : {
+        name: 'Account',
+
+        components: {
             'payment-form': Payment,
             'withdraw-form': Withdraw,
             'price-chart': PriceChart,
+            'profit-table': ProfitTable,
+            'profit-chart': ProfitChart,
         },
 
         data() {
@@ -87,6 +78,8 @@
                     usd: 0,
                     rub: 0
                 },
+
+                profits: [],
 
                 currency_list: [
                     {
@@ -103,12 +96,27 @@
                     },
                 ],
 
+                current_profit_view: null,
+                profit_views: [
+                    {
+                        name: 'Таблица',
+                        component: 'profit-table',
+                        isActive: true,
+                    },
+                    {
+                        name: 'График',
+                        component: 'profit-chart',
+                        isActive: false,
+                    }
+                ]
+
             }
         },
 
         mounted() {
             this.$auth.fetch();
             this.getBalance();
+            this.getProfit();
         },
 
         methods: {
@@ -121,6 +129,18 @@
                     let data = response.data;
                     if (data.status === 'success') {
                         self.balance = data.balance;
+                    }
+                })
+            },
+
+            getProfit() {
+                let self = this;
+                self.axios.get(
+                    '/profit',
+                ).then((response) => {
+                    let data = response.data;
+                    if (data.status === 'success') {
+                        self.profits = data.profits;
                     }
                 })
             },
@@ -138,6 +158,21 @@
                     elem.isActive = (elem.name === item.name);
                 })
             },
+
+            changeActiveProfitViewTo(item) {
+                this.profit_views.forEach((elem) => {
+                    elem.isActive = (elem.name === item.name);
+                })
+                this.current_profit_view = item.component;
+            },
+
+        },
+
+        computed: {
+
+            profitComponent: function () {
+                return this.current_profit_view == null ? 'profit-table' : this.current_profit_view;
+            }
 
         }
     }
