@@ -37,7 +37,7 @@
                     <!--a.stat__select__item График-->
                     <!--a.stat__select__item.stat__select__item_active Таблица-->
             .stat__view
-                component(v-bind:profits='profits' v-bind:is='profitComponent')
+                component(v-bind:profits='profits' v-bind:sym='current_sym.sym' v-bind:sign='current_sym.name' v-bind:is='profitComponent')
             a.stat__report-link(href='#') Запросить отчет по операциям
         // График курса
         .plot__title График курса криптовалюты
@@ -81,17 +81,24 @@
 
                 profits: [],
 
+                current_sym: {
+                    name: 'BTC',
+                    sym: 'btc',
+                },
                 currency_list: [
                     {
                         name: 'BTC',
+                        sym: 'btc',
                         isActive: true,
                     },
                     {
                         name: '$',
+                        sym: 'usd',
                         isActive: false,
                     },
                     {
-                        name: 'P',
+                        name: 'T',
+                        sym: 'rub',
                         isActive: false,
                     },
                 ],
@@ -157,6 +164,7 @@
                 this.currency_list.forEach((elem) => {
                     elem.isActive = (elem.name === item.name);
                 })
+                this.current_sym = item;
             },
 
             changeActiveProfitViewTo(item) {

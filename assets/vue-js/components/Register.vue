@@ -19,8 +19,12 @@
             div(v-for='error in errors.phone')
                 p.contact-form__error {{ error }}
 
-            input.contact-form__input(type='text' placeholder='Логин' v-model='data.body.username' required=true v-bind:class='{ "contact-form__input_error": errors.username }')
-            div(v-for='error in errors.username')
+            input.contact-form__input(type='text' placeholder='Email' v-model='data.body.email' required=true v-bind:class='{ "contact-form__input_error": errors.email }')
+            div(v-for='error in errors.email')
+                p.contact-form__error {{ error }}
+
+            input.contact-form__input(type='text' placeholder='Логин' v-model='data.body.login' required=true v-bind:class='{ "contact-form__input_error": errors.login }')
+            div(v-for='error in errors.login')
                 p.contact-form__error {{ error }}
 
             input.contact-form__input(type='password' placeholder='Пароль' v-model='data.body.password' required=true v-bind:class='{ "contact-form__input_error": errors.password }')
@@ -47,16 +51,18 @@
                     body: {
                         name: '',
                         phone: '',
-                        username: '',
+                        login: '',
                         password: '',
                         promo: '',
+                        email: '',
                     },
                 },
                 errors: {
-                    username: null,
+                    login: null,
                     name: null,
                     phone: null,
                     password: null,
+                    email: null,
                 }
             }
         },

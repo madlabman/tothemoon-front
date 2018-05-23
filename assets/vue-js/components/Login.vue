@@ -27,8 +27,8 @@
             return {
                 data: {
                     body: {
-                        login: 'admin',
-                        password: 'testtest'
+                        login: '',
+                        password: ''
                     },
                     rememberMe: false,
                     fetchUser: false
