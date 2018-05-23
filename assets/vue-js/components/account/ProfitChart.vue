@@ -95,7 +95,7 @@
                     .attr('dx', '-.8em')
                     .attr('dy', '.15em')
                     .attr('fill', '#cbcbcb')
-                    .text((e) => { return `${d3.format(",")(e)}` });
+                    .text((e) => { return `${d3.format(",")(e)}%` });
             }
 
         },
