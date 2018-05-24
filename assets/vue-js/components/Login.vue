@@ -11,6 +11,7 @@
             input.contact-form__input(type='password' placeholder='Пароль' v-model='data.body.password' v-bind:class='{ "contact-form__input_error": errors.password }')
             div(v-for='error in errors.password')
                 p.contact-form__error {{ error }}
+            p.contact-form__error(v-if='verify_msg') {{ verify_msg }}
 
             app-button(text='Вход')
 
@@ -36,11 +37,18 @@
                 errors: {
                     login: null,
                     password: null,
-                }
+                },
+                verify_msg: null,
             }
         },
+
+        mounted() {
+            if (this.$route.query.v !== undefined) this.verifyEmail();
+        },
+
         methods: {
             login() {
+                this.verify_msg = null;
                 let redirect = this.$auth.redirect();
                 let app = this;
                 this.$auth.login({
@@ -57,7 +65,24 @@
                     }, (res) => {
                         // TODO: handle error
                     });
-            }
+            },
+
+            verifyEmail() {
+                let self = this;
+                self.axios({
+                    method: 'post',
+                    url: '/auth/verify',
+                    data: {
+                        token: this.$route.query.v,
+                    }
+                }).then(function (response) {
+                    let data = response.data;
+                    if (data.status !== 'error' && data.msg) {
+                        self.verify_msg = data.msg;
+                    }
+                })
+            },
+
         }
     }
 </script>
