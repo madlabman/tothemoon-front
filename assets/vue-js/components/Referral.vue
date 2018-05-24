@@ -20,8 +20,11 @@
             p.referral__leader Вы пришли по ссылке пользователя по имени
                 span.referral__label {{ leader.name }}
         .referral__block(v-if='ref_count')
-            p.referral__leader Вы привели пользователей:
+            p.referral__leader Вы привели всего пользователей:
                 span.referral__label {{ ref_count }}
+            p.referral__leader Пользователи:
+                span(v-for='referral in referrals')
+                    span.referral__label {{ referral }}
 
 </template>
 
@@ -34,6 +37,7 @@
             return {
                 leader: null,
                 ref_count: null,
+                referrals: [],
             }
         },
 
@@ -82,6 +86,7 @@
                     .then((response) => {
                         if (response.data.status && response.data.status === 'success') {
                             self.ref_count = response.data.ref_count;
+                            self.referrals = response.data.referrals;
                         }
                     })
             },
