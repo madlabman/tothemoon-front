@@ -67,6 +67,10 @@
             }
         },
 
+        mounted() {
+            this.checkPromo();
+        },
+
         methods: {
 
             register() {
@@ -91,6 +95,24 @@
                 }).catch(function (response) {
                     console.error(response);
                 })
+            },
+
+            checkPromo() {
+                if (this.$route.query.r !== undefined) {
+                    let self = this;
+                    self.axios({
+                        method: 'post',
+                        url: '/auth/promo',
+                        data: {
+                            promo: this.$route.query.r,
+                        }
+                    }).then(function (response) {
+                        let data = response.data;
+                        if (data.status !== 'error' && data.promo) {
+                            self.data.body.promo = data.promo;
+                        }
+                    })
+                }
             }
 
         },

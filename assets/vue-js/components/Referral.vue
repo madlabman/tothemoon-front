@@ -9,6 +9,13 @@
                     v-clipboard:success='onCopy'
                     )
                     | {{ $auth.user().promo_code }}
+            p.referral__promo
+                | Реферальная ссылка:
+                span.referral__promo__code.referral__label(
+                    v-clipboard:copy='ref_link'
+                    v-clipboard:success='onCopy'
+                    )
+                    | {{ ref_link }}
         .referral__block(v-if='leader')
             p.referral__leader Вы пришли по ссылке пользователя по имени
                 span.referral__label {{ leader.name }}
@@ -36,6 +43,13 @@
                 return this.$auth.user().promo_code;
             },
 
+            ref_link: function () {
+                let props = this.$router.resolve({
+                    name: 'register',
+                });
+                return 'http://fund.chtoto.net/lk.html' + props.href + '?r=' + this.$auth.user().promo_code;
+            }
+
         },
 
         mounted() {
@@ -48,7 +62,7 @@
             onCopy: function () {
                 this.$notify({
                     group: 'lk',
-                    text: 'Промокод скопирован в буфер обмена!'
+                    text: 'Скопировано в буфер обмена!'
                 })
             },
 
