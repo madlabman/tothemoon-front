@@ -30,6 +30,8 @@ block aside
 block content
     // 01
     section.background.background_promo
+        video.my-background-video.jquery-background-video(loop autoplay poster='/img/promo-bg.jpg' data-bgvideo='true')
+            source(src='/promo.mp4' type='video/mp4')
         article#slide1.page-block.promo
             .container.container_with-sidebar.promo__container
                 .page-block__content
@@ -251,8 +253,10 @@ block content
                         p.contact-mail tothemoon@mail.ru
                     .footer__sign
                         div.footer__sign__wrapper
-                            button.button.button_grad-border Вход
-                            button.button.button_grad-border Регистрация
+                            a(href='/lk.html#/login')
+                                button.button.button_grad-border Вход
+                            a(href='/lk.html#/register')
+                                button.button.button_grad-border Регистрация
                         .footer__sign__bottom
                             .icon-block
                                 i.icon.icon_instagram

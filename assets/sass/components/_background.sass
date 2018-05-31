@@ -2,7 +2,8 @@
   background-repeat: no-repeat
 
   &_promo
-    background-image: url('../img/promo-bg.jpg')
+    position: relative
+    background: transparent
     background-size: cover
     @include media('<=laptop')
       background-position: center center
@@ -20,3 +21,11 @@
     background: url('../img/bottom-bg.png') center top
     background-size: cover
 
+video
+  pointer-events: none
+
+video::-webkit-media-controls
+  display: none
+
+video::-webkit-media-controls-play-button
+  display: none

@@ -24,6 +24,8 @@
     "jquery-scrollspy": "*",
     "swiper": "^4.2.2",
     "d3": "^4.0.0",
-    "aos": "^2.2.0"
+    "aos": "^2.2.0",
+    "youtubeBackground": "youtube-background-video#^1.0.5",
+    "jquery-background-video": "^1.1.2"
   }
 }

@@ -13,4 +13,8 @@ $(document).ready(function() {
     AOS.init();
 
     $(window).resize(() => { stepsLines(); })
+
+    // $('.background_promo').YTPlayer({
+    //     videoId: 'Z8A1TMxR1_I'
+    // });
 });
