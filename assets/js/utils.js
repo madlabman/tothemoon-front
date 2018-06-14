@@ -256,37 +256,21 @@ function initPriceChart() {
 
             x.domain(d3.extent(dataset, function(d) { return d.date; }));
 
-            let y_min = d3.min(dataset, (d) => { return d.close });
+            let y_min = d3.min(dataset, (d) => { return d.close }) - 2000;
             y_min = (Math.round(y_min / 1000)) * 1000;
             y.domain([
                 y_min,
                 d3.max(dataset, (d) => { return d.close })
             ]);
 
-            let area_back = d3.area()
-                .x((d) => { return x(d.date) })
-                .y0(y(y_min))
-                .y1((d) => {
-                    if (dayFromDate(d.date) === '31') return y(y_min);
-                    if (d.close < y_min) return y(y_min);
-                    return y(d.close);
-                });
             let area_front = d3.area()
                 .x((d) => { return x(d.date) })
                 .y0(y(y_min))
                 .y1((d) => {
-                    if (dayFromDate(d.date) === '14') return y(y_min);
+                    // if (dayFromDate(d.date) === '14') return y(y_min);
                     if (d.close < y_min) return y(y_min);
                     return y(d.close);
                 });
-
-            chart_g.append('path')
-                .datum(dataset)
-                .attr('fill', '#1d1d1d')
-                .attr('data-aos', 'fade-right')
-                .attr('data-aos-anchor', '#price-chart')
-                .attr('data-aos-duration', 2000)
-                .attr('d', area_back);
 
             chart_g.append('path')
                 .datum(dataset)
