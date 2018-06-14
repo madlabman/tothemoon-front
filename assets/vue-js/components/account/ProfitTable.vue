@@ -4,7 +4,6 @@
             tr
                 th(rowspan=2) Дата
                 th(colspan=2) Прибыль за день
-                td(rowspan=2) Баланс
             tr
                 th %
                 th {{ sign }}
@@ -17,8 +16,6 @@
                 td
                     span(v-if='profit.token_change >= 0') +&nbsp;
                     | {{ profit_value(profit).toFixed(3) }}
-                td
-                    span(v-if='profit.balance') {{  profit.balance.toFixed(2) }}
 </template>
 
 <script>
