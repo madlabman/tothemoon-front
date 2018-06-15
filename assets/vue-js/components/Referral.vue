@@ -51,7 +51,7 @@
                 let props = this.$router.resolve({
                     name: 'register',
                 });
-                return 'http://fund.chtoto.net/lk.html' + props.href + '?r=' + this.$auth.user().promo_code;
+                return 'http://tothemoonfund.com/lk.html' + props.href + '?r=' + this.$auth.user().promo_code;
             }
 
         },
