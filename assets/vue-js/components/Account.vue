@@ -18,7 +18,7 @@
             .balance__stat(@click='getBalance')
                 .balance__stat__item.balance__stat__item_usd {{ balance.usd }}
                 .balance__stat__item.balance__stat__item_btc {{ balance.btc }}
-                .balance__stat__item.balance__stat__item_rub {{ balance.rub }}
+                .balance__stat__item.balance__stat__item_rub {{ balance.rub | tildaBalance }}
         // Статистика
         .stat
             .stat__title Ваша прибыль
@@ -94,11 +94,6 @@
                     {
                         name: '$',
                         sym: 'usd',
-                        isActive: false,
-                    },
-                    {
-                        name: 'T',
-                        sym: 'rub',
                         isActive: false,
                     },
                 ],
@@ -180,6 +175,19 @@
 
             profitComponent: function () {
                 return this.current_profit_view == null ? 'profit-table' : this.current_profit_view;
+            }
+
+        },
+
+        filters: {
+
+            tildaBalance: value => {
+                // See https://stackoverflow.com/a/2304062.
+                if (value % 1 > 0) {
+                    return `~${Math.ceil(value)}`
+                }
+
+                return value;
             }
 
         }

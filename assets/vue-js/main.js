@@ -29,7 +29,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueClipboard);
 Vue.use(VueInputMask);
 
-Vue.axios.defaults.baseURL = 'http://localhost:8000/api/v1';
+Vue.axios.defaults.baseURL = 'http://app.tothemoonfund.com/api/v1';
 
 // Routes
 const routes = [

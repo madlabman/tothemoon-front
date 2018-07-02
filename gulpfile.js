@@ -17,6 +17,13 @@ const reload = browserSync.reload;
 
 let dev = true;
 
+// Flat files
+gulp.task('flat', () => {
+    return gulp.src('./assets/flat/*.*')
+        .pipe(gulp.dest('./dist'))
+        .pipe(reload({stream:true}));
+});
+
 // Pug
 gulp.task('html', () => {
     return gulp.src('./assets/html/**/*.pug')
@@ -143,7 +150,7 @@ gulp.task('clean:dist', function() {
 // Build task
 gulp.task('build', function (callback) {
     runSequence('clean:dist',
-        ['html', 'sass', 'js', 'vue-js', 'images', 'fonts', 'bower'],
+        ['flat', 'html', 'sass', 'js', 'vue-js', 'images', 'fonts', 'bower'],
         callback
     )
 });
@@ -153,7 +160,7 @@ gulp.task('sync', ['build'], () => {
     browserSync.init(['*.css', '*.js', './dist/img/*'], {
         notify: false,
         open: false,
-        port: 9000,
+        port: 9090,
         server: {
             baseDir: ['./dist']
         }
