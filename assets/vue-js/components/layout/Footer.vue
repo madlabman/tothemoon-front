@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import Button from './../page/button.vue'
+    import Button from './../page/Button.vue'
 
     export default {
         components: {
