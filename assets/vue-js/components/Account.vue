@@ -82,19 +82,14 @@
                 profits: [],
 
                 current_sym: {
-                    name: 'BTC',
-                    sym: 'btc',
+                    name: '$',
+                    sym: 'usd',
                 },
                 currency_list: [
                     {
-                        name: 'BTC',
-                        sym: 'btc',
-                        isActive: true,
-                    },
-                    {
                         name: '$',
                         sym: 'usd',
-                        isActive: false,
+                        isActive: true,
                     },
                 ],
 
