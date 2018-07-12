@@ -16,9 +16,9 @@
                     span.balance__button__sign -
                     | Вывести деньги
             .balance__stat(@click='getBalance')
-                .balance__stat__item.balance__stat__item_usd {{ balance.usd }}
-                .balance__stat__item.balance__stat__item_btc {{ balance.btc }}
-                .balance__stat__item.balance__stat__item_rub {{ balance.rub | tildaBalance }}
+                .balance__stat__item.balance__stat__item_usd {{ balance.body.usd }}<br>+{{ balance.bonus.usd }}
+                .balance__stat__item.balance__stat__item_btc {{ balance.body.btc }}<br>+{{ balance.bonus.btc }}
+                .balance__stat__item.balance__stat__item_rub {{ balance.body.rub | tildaBalance }}<br>+{{ balance.bonus.rub | tildaBalance }}
         // Статистика
         .stat
             .stat__title Ваша прибыль
@@ -74,9 +74,16 @@
             return {
 
                 balance: {
-                    btc: 0,
-                    usd: 0,
-                    rub: 0
+                    body: {
+                        btc: 0,
+                        usd: 0,
+                        rub: 0
+                    },
+                    bonus: {
+                        btc: 0,
+                        usd: 0,
+                        rub: 0
+                    }
                 },
 
                 profits: [],
