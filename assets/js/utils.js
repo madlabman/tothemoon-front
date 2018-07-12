@@ -166,7 +166,7 @@ function initScrollSpy() {
 
 function sixMonthAgoDate() {
     let d = new Date();
-    d.setMonth(d.getMonth() - 6);
+    d.setMonth(d.getMonth() - 12);
     return d;
 }
 
@@ -216,6 +216,9 @@ function initPriceChart() {
         .attr('height', height)
         .attr('viewBox', `0 0 ${width} ${height}`);
 
+    let reset_button = d3.select('.day-change__chart').append('i')
+        .attr('class', 'day-change__reset');
+
     width -= margin.left + margin.right;
     height -= margin.top + margin.bottom;
 
@@ -242,14 +245,10 @@ function initPriceChart() {
             // remove unused data
             let dataset = [];
             Object.keys(data.bpi).forEach((elem) => {
-                let day = elem.slice(8, 10);        // get date
-                if (['01', '15'].includes(day)) {   // keep price on 01 and 15 only
-                    // delete data.bpi[elem];
-                    dataset.push({
-                        date: parse_time(elem),
-                        close: +data.bpi[elem]
-                    })
-                }
+                dataset.push({
+                    date: parse_time(elem),
+                    close: +data.bpi[elem]
+                });
             });
 
             // console.log(dataset);
@@ -272,7 +271,9 @@ function initPriceChart() {
                     return y(d.close);
                 });
 
-            chart_g.append('path')
+            let plot_area = chart_g.append('g').attr('class', 'day-change__plot');
+
+            plot_area.append('path')
                 .datum(dataset)
                 .attr('fill', 'url(#chart-gradient)')
                 .attr('fill-opacity', '1')
@@ -281,38 +282,82 @@ function initPriceChart() {
                 .attr('data-aos-duration', 2000)
                 .attr('d', area_front);
 
-            chart_g.append("g")
+            let x_axis = d3.axisBottom(x).ticks(6);
+
+            let gX = chart_g.append("g")
                 .attr('transform', `translate(0,${height + 20})`)
                 .attr('class', 'day-change__chart__axis')
-                .call(d3.axisBottom(x).ticks(6))
-                .selectAll("text")
+                .call(x_axis);
+
+            gX.selectAll("text")
                 .transition(t)
                 .style('text-anchor', 'end')
                 .attr('dx', '-.8em')
-                .attr('dy', '.15em')
-                .attr('fill', '#cbcbcb');
+                .attr('dy', '.15em');
 
             // add the Y gridlines
-            chart_g.append('g')
-                .attr('class', 'grid')
-                .call(d3.axisLeft(y).ticks(5)
-                    .tickSize(-width)
-                    .tickFormat('')
-                )
-                .selectAll('line')
-                .attr('stroke', '#717171')
-                .attr('stroke-opacity', '0.51');
+            let y_axis = d3.axisLeft(y).ticks(5)
+                .tickSize(-width)
+                .tickFormat('');
 
-            chart_g.append("g")
+            let gY = chart_g.append("g")
                 .style('transform', `translate(-30px,0)`)
-                .attr('class', 'day-change__chart__domain')
+                .attr('class', 'day-change__chart__domain grid')
                 .call(d3.axisLeft(y).ticks(5))
-                .selectAll('text')
-                .style('text-anchor', 'start')
-                .attr('dx', '-.8em')
-                .attr('dy', '.15em')
-                .attr('fill', '#cbcbcb')
-                .text((e) => { return `$${d3.format(',')(e)}` });
+                .call(y_axis)
+            ;
+
+            const transformPriceLines = g => {
+                g.select('.domain').remove();
+                return g.selectAll('line')
+                    .attr('stroke', '#717171')
+                    .attr('stroke-opacity', '0.51')
+                    .attr('transform', 'translate(30, 0)');
+            };
+
+            const transformPrice = g => {
+                g.select('.domain').remove();
+                return g.selectAll('text')
+                    .style('text-anchor', 'start')
+                    .attr('dx', '-.8em')
+                    .attr('dy', '.15em')
+                    .attr('fill', '#cbcbcb')
+                    .text((e) => { return `$${d3.format(',')(e)}` });
+            };
+
+            const transformDateText = g => {
+                g.select('.domain').remove();
+                g.selectAll('line').remove();
+                return g.selectAll('text')
+                    .attr('fill', '#cbcbcb');
+            };
+
+            const customChart = () => {
+                transformPriceLines(gY);
+                transformPrice(gY);
+                transformDateText(gX);
+            };
+
+            customChart();
+
+            let zoomed = () => {
+                plot_area.attr('transform', d3.event.transform);
+                gX.call(x_axis.scale(d3.event.transform.rescaleX(x)));
+                //gY.call(y_axis.scale(d3.event.transform.rescaleY(y)));
+                gY.call(y_axis.scale(d3.event.transform.rescaleY(y)));
+                customChart();
+            };
+
+            let resetZoom = () => {
+                chart_g.call(zoom.transform, d3.zoomIdentity);
+            };
+
+            let zoom = d3.zoom()
+                .scaleExtent([1, 4])
+                .on('zoom', zoomed);
+
+            chart_g.call(zoom);
+            reset_button.on('click', resetZoom);
     })
 }
 

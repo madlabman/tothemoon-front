@@ -1,4 +1,5 @@
 .day-change
+  overflow: hidden
   
   &__title
     @include font-size(19)
@@ -39,3 +40,16 @@
     width: 100%
     @include media('<laptop')
       width: auto
+
+  &__reset
+    display: inline-block
+    position: absolute
+    right: 20px
+    width: 30px
+    height: 30px
+    background-image: url('../img/collapse-icon.png')
+    background-size: cover
+    cursor: pointer
+
+    &:hover
+      color: #00fff2
