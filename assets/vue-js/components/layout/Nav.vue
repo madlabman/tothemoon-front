@@ -15,6 +15,8 @@
                     span(v-if='unread_count > 0').badge.badge_small +{{ unread_count }}
                 li.lk-menu__main-nav__item
                     router-link(to='/news') Новости
+                li.lk-menu__main-nav__item
+                    router-link(to='/faq') FAQ
         nav.lk-menu__bottom-nav
             ul.lk-menu__bottom-nav__list
                 li.lk-menu__bottom-nav__item.lk-menu__bottom-nav__item_settings
