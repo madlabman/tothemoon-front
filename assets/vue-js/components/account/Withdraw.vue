@@ -5,7 +5,7 @@
         form(@submit.prevent='createWithdraw').payment__form
 
             input.contact-form__input(
-            type='text'
+            type='number'
             placeholder='Сумма'
             v-model='withdraw.amount'
             v-bind:class='{ "contact-form__input_error": errors.amount}')
