@@ -39,6 +39,9 @@
             .stat__view
                 component(v-bind:profits='profits' v-bind:sym='current_sym.sym' v-bind:sign='current_sym.name' v-bind:is='profitComponent')
             a.stat__report-link(href='#') Запросить отчет по операциям
+        // График прибыли
+        .plot__title График прибыли фонда
+        day-profit-chart
         // График курса
         .plot__title График курса криптовалюты
         //    .plot__select
@@ -57,6 +60,7 @@
     import PriceChart from './page/PriceChart.vue'
     import ProfitTable from './account/ProfitTable.vue'
     import ProfitChart from './account/ProfitChart.vue'
+    import DayProfitChart from './page/ProfitChart.vue'
 
     export default {
 
@@ -68,6 +72,7 @@
             'price-chart': PriceChart,
             'profit-table': ProfitTable,
             'profit-chart': ProfitChart,
+            'day-profit-chart': DayProfitChart,
         },
 
         data() {

@@ -184,7 +184,7 @@ function dateFromTimestamp(t) {
     return d;
 }
 
-function initPriceChart() {
+function initDayChange() {
     const current_price_url = `https://api.coindesk.com/v1/bpi/currentprice/USD.json`;
     const yesterday_price_url = `https://api.coindesk.com/v1/bpi/historical/close.json?for=yesterday`;
 
@@ -200,7 +200,9 @@ function initPriceChart() {
             }
         })
     });
+}
 
+function initPriceChart(selector, dataset) {
     let width = 1000;
     let height = 380;
     let margin = {top: 20, right: 20, bottom: 50, left: 60};
@@ -209,14 +211,14 @@ function initPriceChart() {
         .duration(750)
         .ease(d3.easeLinear);
 
-    d3.selectAll('.day-change__chart svg').remove();
-    let price_chart = d3.select('.day-change__chart').append('svg')
+    d3.selectAll(`${selector} svg`).remove();
+    let price_chart = d3.select(selector).append('svg')
         .attr('class', 'day-change__svg')
         .attr('width', width)
         .attr('height', height)
         .attr('viewBox', `0 0 ${width} ${height}`);
 
-    let reset_button = d3.select('.day-change__chart').append('i')
+    let reset_button = d3.select(selector).append('i')
         .attr('class', 'day-change__reset');
 
     width -= margin.left + margin.right;
@@ -224,141 +226,116 @@ function initPriceChart() {
 
     let chart_g = price_chart.append('g').attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    let stop_date = new Date();
-    let start_date = sixMonthAgoDate();
-    let parse_time = d3.timeParse('%Y-%m-%d');
-
-    // console.log('toYMD: 'toYMD(new Date()));
-    // console.log('time_parse: ' + parse_time(toYMD(new Date())));
-    // console.log('dateFromDate: ' + dayFromDate(new Date()));
-
     let x = d3.scaleTime()
         .rangeRound([0, width]);
     let y = d3.scaleLinear()
         .rangeRound([height, 0]);
 
-    d3.json(
-        `https://api.coindesk.com/v1/bpi/historical/close.json?start=${toYMD(start_date)}&end=${toYMD(stop_date)}`,
-        // `test.json`,
-        // 'https://api.myjson.com/bins/erlyf',
-        (data) => {
-            // remove unused data
-            let dataset = [];
-            Object.keys(data.bpi).forEach((elem) => {
-                dataset.push({
-                    date: parse_time(elem),
-                    close: +data.bpi[elem]
-                });
-            });
+    x.domain(d3.extent(dataset, function(d) { return d.date; }));
 
-            // console.log(dataset);
+    let y_min = d3.min(dataset, (d) => { return d.close }) - 2000;
+    y_min = (Math.round(y_min / 1000)) * 1000;
+    y.domain([
+        y_min,
+        d3.max(dataset, (d) => { return d.close })
+    ]);
 
-            x.domain(d3.extent(dataset, function(d) { return d.date; }));
+    let area_front = d3.area()
+        .x((d) => { return x(d.date) })
+        .y0(y(y_min))
+        .y1((d) => {
+            // if (dayFromDate(d.date) === '14') return y(y_min);
+            if (d.close < y_min) return y(y_min);
+            return y(d.close);
+        });
 
-            let y_min = d3.min(dataset, (d) => { return d.close }) - 2000;
-            y_min = (Math.round(y_min / 1000)) * 1000;
-            y.domain([
-                y_min,
-                d3.max(dataset, (d) => { return d.close })
-            ]);
+    let plot_area = chart_g.append('g').attr('class', 'day-change__plot');
 
-            let area_front = d3.area()
-                .x((d) => { return x(d.date) })
-                .y0(y(y_min))
-                .y1((d) => {
-                    // if (dayFromDate(d.date) === '14') return y(y_min);
-                    if (d.close < y_min) return y(y_min);
-                    return y(d.close);
-                });
+    plot_area.append('path')
+        .datum(dataset)
+        .attr('fill', 'url(#chart-gradient)')
+        .attr('fill-opacity', '1')
+        .attr('data-aos', 'fade-left')
+        .attr('data-aos-anchor', '#price-chart')
+        .attr('data-aos-duration', 2000)
+        .attr('d', area_front);
 
-            let plot_area = chart_g.append('g').attr('class', 'day-change__plot');
+    let x_axis = d3.axisBottom(x).ticks(6);
 
-            plot_area.append('path')
-                .datum(dataset)
-                .attr('fill', 'url(#chart-gradient)')
-                .attr('fill-opacity', '1')
-                .attr('data-aos', 'fade-left')
-                .attr('data-aos-anchor', '#price-chart')
-                .attr('data-aos-duration', 2000)
-                .attr('d', area_front);
+    let gX = chart_g.append("g")
+        .attr('transform', `translate(0,${height + 20})`)
+        .attr('class', 'day-change__chart__axis')
+        .call(x_axis);
 
-            let x_axis = d3.axisBottom(x).ticks(6);
+    gX.selectAll("text")
+        .transition(t)
+        .style('text-anchor', 'end')
+        .attr('dx', '-.8em')
+        .attr('dy', '.15em');
 
-            let gX = chart_g.append("g")
-                .attr('transform', `translate(0,${height + 20})`)
-                .attr('class', 'day-change__chart__axis')
-                .call(x_axis);
+    // add the Y gridlines
+    let y_axis = d3.axisLeft(y).ticks(5)
+        .tickSize(-width)
+        .tickFormat('');
 
-            gX.selectAll("text")
-                .transition(t)
-                .style('text-anchor', 'end')
-                .attr('dx', '-.8em')
-                .attr('dy', '.15em');
+    let gY = chart_g.append("g")
+        .style('transform', `translate(-30px,0)`)
+        .attr('class', 'day-change__chart__domain grid')
+        .call(d3.axisLeft(y).ticks(5))
+        .call(y_axis)
+    ;
 
-            // add the Y gridlines
-            let y_axis = d3.axisLeft(y).ticks(5)
-                .tickSize(-width)
-                .tickFormat('');
+    const transformPriceLines = g => {
+        g.select('.domain').remove();
+        return g.selectAll('line')
+            .attr('stroke', '#717171')
+            .attr('stroke-opacity', '0.51')
+            .attr('transform', 'translate(30, 0)');
+    };
 
-            let gY = chart_g.append("g")
-                .style('transform', `translate(-30px,0)`)
-                .attr('class', 'day-change__chart__domain grid')
-                .call(d3.axisLeft(y).ticks(5))
-                .call(y_axis)
-            ;
+    const transformPrice = g => {
+        g.select('.domain').remove();
+        return g.selectAll('text')
+            .style('text-anchor', 'start')
+            .attr('dx', '-.8em')
+            .attr('dy', '.15em')
+            .attr('fill', '#cbcbcb')
+            .text((e) => { return `$${d3.format(',')(e)}` });
+    };
 
-            const transformPriceLines = g => {
-                g.select('.domain').remove();
-                return g.selectAll('line')
-                    .attr('stroke', '#717171')
-                    .attr('stroke-opacity', '0.51')
-                    .attr('transform', 'translate(30, 0)');
-            };
+    const transformDateText = g => {
+        g.select('.domain').remove();
+        g.selectAll('line').remove();
+        return g.selectAll('text')
+            .attr('fill', '#cbcbcb');
+    };
 
-            const transformPrice = g => {
-                g.select('.domain').remove();
-                return g.selectAll('text')
-                    .style('text-anchor', 'start')
-                    .attr('dx', '-.8em')
-                    .attr('dy', '.15em')
-                    .attr('fill', '#cbcbcb')
-                    .text((e) => { return `$${d3.format(',')(e)}` });
-            };
+    const customChart = () => {
+        transformPriceLines(gY);
+        transformPrice(gY);
+        transformDateText(gX);
+    };
 
-            const transformDateText = g => {
-                g.select('.domain').remove();
-                g.selectAll('line').remove();
-                return g.selectAll('text')
-                    .attr('fill', '#cbcbcb');
-            };
+    customChart();
 
-            const customChart = () => {
-                transformPriceLines(gY);
-                transformPrice(gY);
-                transformDateText(gX);
-            };
+    let zoomed = () => {
+        plot_area.attr('transform', d3.event.transform);
+        gX.call(x_axis.scale(d3.event.transform.rescaleX(x)));
+        //gY.call(y_axis.scale(d3.event.transform.rescaleY(y)));
+        gY.call(y_axis.scale(d3.event.transform.rescaleY(y)));
+        customChart();
+    };
 
-            customChart();
+    let resetZoom = () => {
+        chart_g.call(zoom.transform, d3.zoomIdentity);
+    };
 
-            let zoomed = () => {
-                plot_area.attr('transform', d3.event.transform);
-                gX.call(x_axis.scale(d3.event.transform.rescaleX(x)));
-                //gY.call(y_axis.scale(d3.event.transform.rescaleY(y)));
-                gY.call(y_axis.scale(d3.event.transform.rescaleY(y)));
-                customChart();
-            };
+    let zoom = d3.zoom()
+        .scaleExtent([1, 4])
+        .on('zoom', zoomed);
 
-            let resetZoom = () => {
-                chart_g.call(zoom.transform, d3.zoomIdentity);
-            };
-
-            let zoom = d3.zoom()
-                .scaleExtent([1, 4])
-                .on('zoom', zoomed);
-
-            chart_g.call(zoom);
-            reset_button.on('click', resetZoom);
-    })
+    chart_g.call(zoom);
+    reset_button.on('click', resetZoom);
 }
 
 function initCapitalizationChart() {
