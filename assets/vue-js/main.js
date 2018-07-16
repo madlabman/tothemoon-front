@@ -15,10 +15,11 @@ import App from './App.vue'
 import Account from './components/Account.vue'
 import Login from './components/Login.vue'
 import Messages from './components/Messages.vue'
+import News from './components/News.vue'
+import Referral from './components/Referral.vue'
 import Register from './components/Register.vue'
 import Settings from './components/Settings.vue'
 import Signal from './components/Signal.vue'
-import Referral from './components/Referral.vue'
 
 import moment from 'moment'
 
@@ -85,6 +86,14 @@ const routes = [
         path: '/messages',
         name: 'messages',
         component: Messages,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: '/news',
+        name: 'news',
+        component: News,
         meta: {
             auth: true
         }
