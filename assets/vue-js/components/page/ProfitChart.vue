@@ -18,7 +18,6 @@
                         let parse_time = d3.timeParse('%Y-%m-%d');
                         let dataSet = [];
                         data.data.forEach(elem => {
-                            console.log(elem);
                             dataSet.push({
                                 date: parse_time(elem.date),
                                 close: +elem.close
