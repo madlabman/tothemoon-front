@@ -318,6 +318,42 @@ function initPriceChart(selector, dataset) {
 
     customChart();
 
+    let focus = price_chart.append('g')
+        .attr('class', 'day_change__focus')
+        .style('display', 'none');
+
+    focus.append("circle")
+        .attr("r", 4.5)
+        .attr('fill', '#cbcbcb');
+
+    focus.append('text')
+        .attr('x', 9)
+        .attr('dy', '0.35em')
+        .attr('fill', '#cbcbcb');
+
+    let overlay = price_chart.append('rect')
+        .attr('class', 'day-change__overlay')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('transform', `translate(${margin.left},0)`)
+        .on('mouseover', () => {
+            focus.style('display', null)
+        })
+        .on('mouseout', () => {
+            focus.style('display', 'none')
+        })
+        .on('mousemove', function () {
+            const transform = d3.zoomTransform(this);
+            const xt = transform.rescaleX(x);
+            const yt = transform.rescaleY(y);
+            const mouse_date = xt.invert(d3.mouse(this)[0]);
+            const bisectDate = d3.bisector(function(d) { return d.date; }).right;
+            const index = bisectDate(dataset, mouse_date, 0, dataset.length);
+            const selected = dataset[index];
+            focus.attr('transform', `translate(${xt(selected.date) + margin.left},${yt(selected.close) + margin.top})`);
+            focus.select('text').text(selected.close.toFixed(2));
+        });
+
     let zoomed = () => {
         plot_area.attr('transform', d3.event.transform);
         gX.call(x_axis.scale(d3.event.transform.rescaleX(x)));
@@ -327,15 +363,17 @@ function initPriceChart(selector, dataset) {
     };
 
     let resetZoom = () => {
-        chart_g.call(zoom.transform, d3.zoomIdentity);
+        overlay.call(zoom.transform, d3.zoomIdentity);
     };
 
     let zoom = d3.zoom()
         .scaleExtent([1, 4])
         .on('zoom', zoomed);
 
-    chart_g.call(zoom);
     reset_button.on('click', resetZoom);
+
+    // Use zoom on overlay
+    overlay.call(zoom);
 }
 
 function initCapitalizationChart() {
