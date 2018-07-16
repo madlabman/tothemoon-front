@@ -19,26 +19,6 @@
                 .balance__stat__item.balance__stat__item_usd {{ balance.body.usd }}<br>+{{ balance.bonus.usd }}
                 .balance__stat__item.balance__stat__item_btc {{ balance.body.btc }}<br>+{{ balance.bonus.btc }}
                 .balance__stat__item.balance__stat__item_rub {{ balance.body.rub | tildaBalance }}<br>+{{ balance.bonus.rub | tildaBalance }}
-        // Статистика
-        .stat
-            .stat__title Ваша прибыль
-            .stat__menu
-                .stat__select(v-for='currency in currency_list')
-                    a.stat__select__item(
-                    v-bind:class='{ "stat__select__item_active": currency.isActive }'
-                    v-on:click='changeActiveCurrencyTo(currency)'
-                    ) {{ currency.name }}
-                .stat__spacer
-                .stat__select(v-for='view in profit_views')
-                    a.stat__select__item(
-                    v-bind:class='{ "stat__select__item_active": view.isActive }'
-                    v-on:click='changeActiveProfitViewTo(view)'
-                    ) {{ view.name }}
-                    <!--a.stat__select__item График-->
-                    <!--a.stat__select__item.stat__select__item_active Таблица-->
-            .stat__view
-                component(v-bind:profits='profits' v-bind:sym='current_sym.sym' v-bind:sign='current_sym.name' v-bind:is='profitComponent')
-            a.stat__report-link(href='#') Запросить отчет по операциям
         // График прибыли
         .plot__title График прибыли фонда
         day-profit-chart
@@ -91,8 +71,6 @@
                     }
                 },
 
-                profits: [],
-
                 current_sym: {
                     name: '$',
                     sym: 'usd',
@@ -125,7 +103,6 @@
         mounted() {
             this.$auth.fetch();
             this.getBalance();
-            this.getProfit();
         },
 
         methods: {
@@ -138,18 +115,6 @@
                     let data = response.data;
                     if (data.status === 'success') {
                         self.balance = data.balance;
-                    }
-                })
-            },
-
-            getProfit() {
-                let self = this;
-                self.axios.get(
-                    '/profit',
-                ).then((response) => {
-                    let data = response.data;
-                    if (data.status === 'success') {
-                        self.profits = data.profits;
                     }
                 })
             },

@@ -233,8 +233,9 @@ function initPriceChart(selector, dataset) {
 
     x.domain(d3.extent(dataset, function(d) { return d.date; }));
 
-    let y_min = d3.min(dataset, (d) => { return d.close }) - 2000;
-    y_min = (Math.round(y_min / 1000)) * 1000;
+    let y_min = d3.min(dataset, (d) => { return d.close });
+    y_min = y_min.toFixed(3) * 0.9;
+    console.log(y_min);
     y.domain([
         y_min,
         d3.max(dataset, (d) => { return d.close })
