@@ -13,6 +13,7 @@ const VueInputMask = require('vue-inputmask').default
 
 import App from './App.vue'
 import Account from './components/Account.vue'
+import Command from './components/Command.vue'
 import FAQ from './components/FAQ.vue'
 import Login from './components/Login.vue'
 import Messages from './components/Messages.vue'
@@ -103,6 +104,14 @@ const routes = [
         path: '/faq',
         name: 'faq',
         component: FAQ,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: '/command',
+        name: 'command',
+        component: Command,
         meta: {
             auth: true
         }
