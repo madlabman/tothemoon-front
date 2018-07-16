@@ -1,6 +1,7 @@
 <template lang="jade">
     .payment
         p.v--modal__title Запросить выплату
+        p.v--modal__btc-price {{ withdraw.amount }}BTC = {{ ($btcPrice * withdraw.amount).toFixed(2) }}$
         form(@submit.prevent='createWithdraw').payment__form
 
             input.contact-form__input(
@@ -34,7 +35,7 @@
         data() {
             return {
                 withdraw: {
-                    amount: null,
+                    amount: 1,
                     wallet: null,
                 },
                 errors: {

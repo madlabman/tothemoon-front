@@ -1,10 +1,11 @@
 <template lang="jade">
     .payment
         p.v--modal__title Пополнить счет
+        p.v--modal__btc-price {{ payment.amount }}BTC = {{ ($btcPrice * payment.amount).toFixed(2) }}$
         form(@submit.prevent='createPayment').payment__form
 
             input.contact-form__input(
-            type='text'
+            type='number'
             placeholder='Сумма'
             v-model='payment.amount'
             v-bind:class='{ "contact-form__input_error": errors.amount}')
@@ -34,7 +35,7 @@
         data() {
             return {
                 payment: {
-                    amount: null,
+                    amount: 1,
                     wallet: null,
                 },
                 errors: {

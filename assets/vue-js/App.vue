@@ -63,7 +63,7 @@
                         this.$notifyServerError('lk');
                     }
                 });
-            }
+            },
         }
     }
 </script>

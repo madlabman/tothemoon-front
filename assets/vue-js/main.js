@@ -205,6 +205,24 @@ Vue.filter('formatDate', function(value) {
     }
 });
 
+// Set BTC price
+Vue.prototype.$btcPrice = 0;
+fetch(`https://api.coindesk.com/v1/bpi/currentprice/USD.json`)
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error();
+        }
+    })
+    .then(response => {
+        Vue.prototype.$btcPrice = response.bpi.USD.rate_float;
+    })
+    .catch(error => {
+        console.error('Cannot get BTC price');
+        console.log(error);
+    });
+
 // Mount app
 App.router = Vue.router;
 new Vue(App).$mount('#lk');
