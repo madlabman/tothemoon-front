@@ -9,6 +9,8 @@
                 li.lk-menu__main-nav__item
                     router-link(to='/signals') Сигналы
                 li.lk-menu__main-nav__item
+                    router-link(to='/team') Команды
+                li.lk-menu__main-nav__item
                     router-link(to='/referral') Партнерская программа
                 li.lk-menu__main-nav__item
                     router-link(to='/messages') Сообщения
@@ -18,7 +20,7 @@
                 li.lk-menu__main-nav__item
                     router-link(to='/faq') FAQ
                 li.lk-menu__main-nav__item
-                    router-link(to='/command') Команда
+                    router-link(to='/command') Наша команда
         nav.lk-menu__bottom-nav
             ul.lk-menu__bottom-nav__list
                 li.lk-menu__bottom-nav__item.lk-menu__bottom-nav__item_settings

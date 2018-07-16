@@ -22,6 +22,7 @@ import Referral from './components/Referral.vue'
 import Register from './components/Register.vue'
 import Settings from './components/Settings.vue'
 import Signal from './components/Signal.vue'
+import Team from './components/Team.vue'
 
 import moment from 'moment'
 
@@ -112,6 +113,14 @@ const routes = [
         path: '/command',
         name: 'command',
         component: Command,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: '/team',
+        name: 'team',
+        component: Team,
         meta: {
             auth: true
         }
