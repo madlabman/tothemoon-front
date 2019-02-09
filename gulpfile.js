@@ -15,7 +15,7 @@ const vueify            = require('vueify');
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
-let dev = true;
+let dev = false;
 
 // Flat files
 gulp.task('flat', () => {

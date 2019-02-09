@@ -4,6 +4,8 @@
   "description": "Simple boilerplate with gulp.js",
   "main": "gulpfile.js",
   "scripts": {
+    "bower": "bower --allow-root install",
+    "build": "gulp build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
