@@ -34,6 +34,10 @@ $(document).ready(function() {
 
     $(window).resize(() => { stepsLines(); })
 
+    $('a[aria-disabled=true]').click(e => {
+        e.preventDefault();
+    });
+
     // $('.background_promo').YTPlayer({
     //     videoId: 'Z8A1TMxR1_I'
     // });
